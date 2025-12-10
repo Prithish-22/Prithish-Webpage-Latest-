@@ -1,0 +1,1296 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prithish Raj T - Aspiring Software Engineer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <!-- Preconnect to speed up external resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <style>
+        /* === CURSOR STYLES START === */
+        body {
+            cursor: none; /* Hide the default cursor */
+        }
+        .cursor-dot,
+        .cursor-outline {
+            pointer-events: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            z-index: 9999;
+            mix-blend-mode: difference;
+        }
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background-color: white;
+        }
+        .cursor-outline {
+            width: 40px;
+            height: 40px;
+            border: 2px solid white;
+        }
+        .cursor-outline.hover {
+            width: 60px;
+            height: 60px;
+            border-color: rgba(255, 255, 255, 0.5);
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        /* === CURSOR STYLES END === */
+
+        /* Custom Styles */
+        /* === DARK THEME (DEFAULT) === */
+        :root {
+            --bg-primary: #0A192F;
+            --bg-secondary: #112240;
+            --bg-tertiary: #233554;
+            --text-primary: #ccd6f6;
+            --text-secondary: #a8b2d1;
+            --text-accent: #64ffda;
+            --accent-tint: rgba(100, 255, 218, 0.1);
+            --border-color: #233554;
+            --shadow-color: rgba(2, 12, 27, 0.7);
+            --font-sans: 'Inter', sans-serif;
+            
+            /* Gradient Text Colors for Dark Mode (Silver/White) */
+            --gradient-start: #f1f5f9;
+            --gradient-end: #94a3b8;
+        }
+
+        /* === LIGHT THEME === */
+        [data-theme="light"] {
+            --bg-primary: #f5f5f7;
+            --bg-secondary: #ffffff;
+            --bg-tertiary: #e5e5ea;
+            --text-primary: #1d1d1f;
+            --text-secondary: #515154;
+            --text-accent: #0071e3;
+            --accent-tint: rgba(0, 113, 227, 0.1);
+            --border-color: #d2d2d7;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+
+            /* Gradient Text Colors for Light Mode (Dark Slate/Black) */
+            --gradient-start: #020617; 
+            --gradient-end: #334155;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--bg-primary);
+            color: var(--text-secondary);
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+            position: relative;
+        }
+        
+        /* Particle Background Canvas */
+        #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        body.no-scroll {
+            overflow: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-sans);
+            font-weight: 700;
+            color: var(--text-primary);
+            transition: color 0.3s ease-in-out;
+        }
+        h1 { font-weight: 700;}
+        h2 { font-weight: 600;}
+        h3 { font-weight: 600;}
+
+        /* Smart Gradient Text Class */
+        .text-gradient {
+            background-image: linear-gradient(to right, var(--gradient-start), var(--gradient-end));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            transition: background-image 0.3s ease-in-out;
+        }
+
+        .text-teal { color: var(--text-accent); }
+        .bg-teal { background-color: var(--text-accent); }
+        .border-teal { border-color: var(--text-accent); }
+
+        /* Scroll Progress Bar */
+        #scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background-color: var(--text-accent);
+            z-index: 1000;
+            transition: width 0.1s ease-out;
+        }
+
+        .sticky-nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background-color: color-mix(in srgb, var(--bg-primary) 85%, transparent);
+            backdrop-filter: blur(10px);
+            transition: top 0.3s ease-in-out, background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            box-shadow: 0 2px 15px var(--shadow-color);
+        }
+
+        .nav-link {
+            transition: color 0.25s ease, opacity 0.25s ease;
+            opacity: 0.85;
+            position: relative;
+            padding-bottom: 8px;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--text-accent);
+            transform: scaleX(0);
+            transform-origin: bottom right;
+            transition: transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+        }
+        .nav-link:hover::after, .nav-link.active::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: var(--text-accent);
+            opacity: 1;
+        }
+        .nav-link.active { font-weight: 600; }
+
+        .section {
+            padding-top: 100px;
+            padding-bottom: 100px;
+            min-height: auto;
+        }
+        @media (max-width: 768px) {
+            .section {
+                padding-top: 80px;
+                padding-bottom: 80px;
+            }
+        }
+
+        .home-section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            text-align: left;
+            position: relative;
+        }
+        
+        /* Typewriter Cursor */
+        .cursor-blink {
+            display: inline-block;
+            margin-left: 2px;
+            animation: blink 1s step-end infinite;
+            color: var(--text-accent);
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* Pulse Animation for the Name Dot */
+        .dot-pulse {
+            display: inline-block;
+            animation: softPulse 2s infinite ease-in-out;
+        }
+        @keyframes softPulse {
+            0%, 100% { transform: scale(1); opacity: 1; text-shadow: 0 0 0 rgba(100, 255, 218, 0); }
+            50% { transform: scale(1.3); opacity: 0.8; text-shadow: 0 0 10px rgba(100, 255, 218, 0.5); }
+        }
+
+        /* Scroll Down Arrow */
+        .scroll-down-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+            opacity: 0.7;
+            color: var(--text-accent);
+            cursor: pointer;
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateX(-50%) translateY(0);}
+            40% {transform: translateX(-50%) translateY(-10px);}
+            60% {transform: translateX(-50%) translateY(-5px);}
+        }
+
+        /* Floating Animation for Profile Image */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .profile-image-container {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .apple-fade-in-up {
+            opacity: 0;
+            transform: translateY(15px);
+            transition: opacity 0.7s cubic-bezier(0.645, 0.045, 0.355, 1), transform 0.7s cubic-bezier(0.645, 0.045, 0.355, 1);
+        }
+        .apple-fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .delay-100.visible { transition-delay: 0.1s !important; }
+        .delay-200.visible { transition-delay: 0.2s !important; }
+        .delay-300.visible { transition-delay: 0.3s !important; }
+        .delay-400.visible { transition-delay: 0.4s !important; }
+        .delay-500.visible { transition-delay: 0.5s !important; }
+        .delay-600.visible { transition-delay: 0.6s !important; }
+
+        .card-base {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            transition: transform 0.1s ease-out, 
+                        box-shadow 0.35s cubic-bezier(0.645, 0.045, 0.355, 1),
+                        border-color 0.3s ease-in-out,
+                        background-color 0.3s ease-in-out,
+                        filter 0.35s ease,
+                        opacity 0.35s ease;
+            transform-style: preserve-3d; /* For 3D Tilt */
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            transition: all 0.3s ease-in-out;
+        }
+        .skill-card {
+            will-change: transform, box-shadow, filter, opacity;
+        }
+        .skills-grid.has-hovered-card .skill-card:not(.is-hovered) {
+            filter: blur(2px);
+            opacity: 0.6;
+            transform: scale(0.98);
+        }
+        .skill-card.is-hovered {
+            /* Transform handled by JS for tilt, fallbacks in hover state if needed */
+            box-shadow: 0 15px 35px -10px var(--accent-tint);
+            border-color: var(--text-accent);
+            z-index: 10;
+            filter: blur(0px);
+            opacity: 1;
+        }
+        .skill-card h4 { color: var(--text-primary); transition: color 0.3s ease; }
+        .skill-card.is-hovered h4 { color: var(--text-accent); }
+
+        .project-card:hover {
+            box-shadow: 0 12px 28px -10px var(--accent-tint);
+        }
+        .project-card .project-title a:hover {
+            color: var(--text-accent);
+        }
+        .project-tech-item {
+            background-color: var(--bg-tertiary);
+            color: var(--text-accent);
+            transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+        }
+        .project-link a:hover {
+            color: var(--text-accent);
+        }
+
+        .education-card {
+             border-left: 3px solid var(--border-color);
+             transition: transform 0.1s ease-out, 
+                          box-shadow 0.3s cubic-bezier(0.645, 0.045, 0.355, 1),
+                          border-left-color 0.3s ease,
+                          background-color 0.3s ease-in-out;
+        }
+        .education-card:hover {
+            box-shadow: 0 10px 28px -12px var(--shadow-color);
+            border-left-color: var(--text-accent);
+        }
+
+        .contact-icon-link { transition: color 0.3s ease, transform 0.3s ease; }
+        .contact-icon-link:hover { 
+            color: var(--text-accent); 
+            transform: scale(1.1);
+        }
+        
+        .profile-image-container {
+            position: relative;
+            width: fit-content;
+        }
+        .profile-image {
+            border-radius: 8px;
+            border: 2px solid var(--text-accent);
+            box-shadow: 0 0 20px -5px var(--accent-tint);
+            transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+        .profile-image-container::before {
+            content: "";
+            display: block;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 8px;
+            border: 2px solid var(--text-accent);
+            top: 12px;
+            left: 12px;
+            z-index: -1;
+            transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1), border-color 0.3s ease-in-out;
+        }
+        .profile-image-container:hover::before {
+            top: 8px;
+            left: 8px;
+        }
+        
+        .section-title-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2.5rem;
+        }
+        .section-title-container h2 {
+            font-size: clamp(26px, 5vw, 32px);
+            margin-right: 20px;
+            white-space: nowrap;
+        }
+        .section-title-container .line {
+            flex-grow: 1;
+            height: 1px;
+            background-color: var(--border-color);
+            position: relative;
+            top: -2px;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .cta-button {
+            background-color: transparent;
+            border: 1px solid var(--text-accent);
+            color: var(--text-accent);
+            padding: 0.85rem 2rem; 
+            border-radius: 4px;
+            font-size: 0.9rem; 
+            font-weight: 500;
+            line-height: 1;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+            display: inline-block; 
+        }
+        .cta-button:hover {
+            background-color: var(--accent-tint);
+            outline: none;
+            transform: translateY(-2px); 
+            box-shadow: 0 4px 15px -5px var(--accent-tint);
+        }
+        
+        #transition-overlay {
+            position: fixed;
+            inset: 0;
+            background-color: var(--bg-primary);
+            z-index: 200;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out, background-color 0.3s ease-in-out;
+        }
+        #transition-overlay.is-active {
+            pointer-events: all;
+            opacity: 1;
+        }
+        #logo-wrapper {
+             transition: transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1);
+        }
+        #transition-overlay.is-moving #logo-wrapper {
+            transform: translate(-46vw, -45vh) scale(0.12);
+        }
+
+        #transition-logo {
+            width: 150px;
+            height: 150px;
+        }
+        #transition-logo path {
+            stroke: var(--text-accent);
+            stroke-width: 8;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            fill: none;
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            transition: stroke 0.3s ease-in-out;
+        }
+        #transition-overlay.is-active #transition-logo path {
+            animation: draw-logo 1.2s ease-in-out forwards;
+        }
+
+        @keyframes draw-logo {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        #theme-toggle-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--text-secondary);
+            padding: 0.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: color 0.3s ease, background-color 0.3s ease;
+        }
+        #theme-toggle-button:hover {
+            color: var(--text-accent);
+            background-color: var(--accent-tint);
+        }
+
+    </style>
+</head>
+<body class="text-slate">
+    
+    <!-- Scroll Progress Bar -->
+    <div id="scroll-progress"></div>
+
+    <!-- CANVAS BACKGROUND -->
+    <canvas id="particle-canvas"></canvas>
+
+    <!-- === CURSOR ELEMENTS START === -->
+    <div class="cursor-outline"></div>
+    <div class="cursor-dot"></div>
+    <!-- === CURSOR ELEMENTS END === -->
+
+    <nav id="navbar" class="sticky-nav">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#home" class="text-2xl font-bold text-teal hover:opacity-80 transition-opacity">PRT</a>
+            <div class="hidden md:flex items-center space-x-6 lg:space-x-8">
+                <a href="#about" class="nav-link text-sm font-medium">About</a>
+                <a href="#skills" class="nav-link text-sm font-medium">Skills</a>
+                <a href="#projects" class="nav-link text-sm font-medium">Projects</a>
+                <a href="#education" class="nav-link text-sm font-medium">Education</a>
+                <a href="#certifications" class="nav-link text-sm font-medium">Certifications</a>
+                <a href="#contact" class="nav-link text-sm font-medium">Contact</a>
+                <div class="flex items-center space-x-4">
+                    <!-- UPDATED RESUME LINK BELOW (DESKTOP) -->
+                    <a href="https://drive.google.com/file/d/1arOqVNJn0OvztUpfEV2IckHOQKi4t9_z/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="cta-button !py-2 !px-4 !text-sm">Resume</a>
+                    
+                    <!-- === THEME TOGGLE BUTTON START === -->
+                    <button id="theme-toggle-button" aria-label="Toggle theme">
+                        <svg id="theme-icon-sun" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.707.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 14.95l.707-.707a1 1 0 011.414 1.414l-.707.707a1 1 0 01-1.414-1.414zM5 11a1 1 0 100-2H4a1 1 0 100 2h1zM4.343 5.657a1 1 0 011.414 0l.707.707a1 1 0 01-1.414 1.414l-.707-.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                        <svg id="theme-icon-moon" class="w-5 h-5 hidden" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                    </button>
+                    <!-- === THEME TOGGLE BUTTON END === -->
+                </div>
+            </div>
+            <div class="md:hidden flex items-center space-x-4">
+                 <!-- === THEME TOGGLE BUTTON (MOBILE) START === -->
+                 <button id="mobile-theme-toggle-button" aria-label="Toggle theme">
+                    <svg id="mobile-theme-icon-sun" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.707.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 14.95l.707-.707a1 1 0 011.414 1.414l-.707.707a1 1 0 01-1.414-1.414zM5 11a1 1 0 100-2H4a1 1 0 100 2h1zM4.343 5.657a1 1 0 011.414 0l.707.707a1 1 0 01-1.414 1.414l-.707-.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                    <svg id="mobile-theme-icon-moon" class="w-6 h-6 hidden" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                </button>
+                <!-- === THEME TOGGLE BUTTON (MOBILE) END === -->
+                <button id="mobile-menu-button" aria-label="Open navigation menu" aria-expanded="false" class="text-teal focus:outline-none">
+                    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div id="mobile-menu" class="md:hidden hidden bg-secondary shadow-xl">
+            <a href="#about" class="block nav-link text-center py-3 px-4 text-base hover:bg-tertiary">About</a>
+            <a href="#skills" class="block nav-link text-center py-3 px-4 text-base hover:bg-tertiary">Skills</a>
+            <a href="#projects" class="block nav-link text-center py-3 px-4 text-base hover:bg-tertiary">Projects</a>
+            <a href="#education" class="block nav-link text-center py-3 px-4 text-base hover:bg-tertiary">Education</a>
+            <a href="#certifications" class="block nav-link text-center py-3 px-4 text-base hover:bg-tertiary">Certifications</a>
+            <a href="#contact" class="block nav-link text-center py-3 px-4 text-base hover:bg-tertiary">Contact</a>
+            <!-- UPDATED RESUME LINK BELOW (MOBILE) -->
+            <a href="https://drive.google.com/file/d/1arOqVNJn0OvztUpfEV2IckHOQKi4t9_z/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="block text-teal text-center py-3 px-4 text-base hover:bg-tertiary">Resume</a>
+        </div>
+    </nav>
+
+    <main class="container mx-auto px-6 md:px-10 lg:px-20">
+        <section id="home" class="home-section">
+            <div>
+                <!-- DESIGN IMPROVEMENT: Smart gradient text that adapts to theme, and updated name format -->
+                <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-gradient my-1 apple-fade-in-up delay-100">PRITHISH RAJ <span class="text-teal dot-pulse">.</span> T</h1>
+                
+                <!-- TYPEWRITER EFFECT -->
+                <h2 class="text-xl md:text-2xl font-medium text-secondary mt-4 mb-6 h-8 apple-fade-in-up delay-150">
+                    I am a <span id="typewriter" class="text-teal font-bold"></span><span class="cursor-blink">|</span>
+                </h2>
+
+                <p class="max-w-xl text-base md:text-lg leading-relaxed mb-10 apple-fade-in-up delay-200">
+                    An aspiring software engineer specializing in data science, blending analytical rigor with creative problem-solving to craft impactful digital experiences and extract insights from data.
+                </p>
+                
+                <!-- DESIGN IMPROVEMENT: Wrapped button and social icons in a flex container -->
+                <div class="flex flex-col sm:flex-row items-start sm:items-center gap-6 apple-fade-in-up delay-300">
+                    <a href="#about" id="learn-more-btn" class="cta-button">
+                        Learn More
+                    </a>
+                    
+                    <!-- Added Hero Social Icons for quick access with bounce hover effect -->
+                    <div class="flex items-center gap-5">
+                        <a href="https://github.com/Prithish-22" target="_blank" rel="noopener noreferrer" class="contact-icon-link text-secondary hover:text-teal transition-colors" aria-label="GitHub">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                        </a>
+                        <a href="https://www.linkedin.com/in/prithish-raj-9bb884349" target="_blank" rel="noopener noreferrer" class="contact-icon-link text-secondary hover:text-teal transition-colors" aria-label="LinkedIn">
+                            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                        </a>
+                        <a href="mailto:t.biju.krithik@gmail.com" class="contact-icon-link text-secondary hover:text-teal transition-colors" aria-label="Email">
+                            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- DESIGN IMPROVEMENT: Scroll Down Indicator -->
+            <div class="scroll-down-indicator apple-fade-in-up delay-600">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+                </svg>
+            </div>
+        </section>
+
+        <section id="about" class="section">
+            <div class="section-title-container apple-fade-in-up">
+                <h2 class="text-primary">01. About Me</h2>
+                <div class="line"></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-8 md:gap-12 items-start">
+                <div class="md:col-span-3 apple-fade-in-up delay-100">
+                    <p class="text-base md:text-lg leading-relaxed mb-4">
+                        Hello! I'm Prithish, an aspiring software engineer driven by the fascinating interplay of data, design, and effective problem-solving. My academic journey is a unique blend: I'm currently pursuing a Bachelor of Arts in English, which enriches my analytical perspective, while simultaneously immersing myself in the technical realm through a Professional Certification in Software Engineering with a Data Science specialization.
+                    </p>
+                    <p class="text-base md:text-lg leading-relaxed mb-4">
+                        This dual approach allows me to tackle challenges with both critical insight from literary studies and technical proficiency in Python, SQL, machine learning, and algorithm design. I believe the most impactful solutions are not only well-coded but also clearly communicated and empathetically designed.
+                    </p>
+                    <p class="text-base md:text-lg leading-relaxed">
+                        My goal is to transform complex data into compelling narratives and build software that is both elegant and purposeful. I'm eager to contribute my unique blend of skills to innovative projects that make a tangible, positive impact.
+                    </p>
+                </div>
+                <div class="md:col-span-2 flex justify-center md:justify-end mt-8 md:mt-0 apple-fade-in-up delay-200">
+                    <!-- DESIGN IMPROVEMENT: Floating animation class added -->
+                    <div class="profile-image-container">
+                        <!-- Added loading="eager" and fetchpriority="high" for faster visual load -->
+                        <img 
+                            src="https://i.postimg.cc/BQJ2q4nF/saved.jpg" 
+                            alt="Prithish Raj T - Profile Photo" 
+                            class="profile-image w-56 h-56 md:w-64 md:h-64 lg:w-72 lg:h-72 object-cover"
+                            onerror="this.onerror=null; this.src='https://placehold.co/300x300/0A192F/FFFFFF?text=Image+Not+Found';"
+                            loading="eager"
+                            fetchpriority="high"
+                        >
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="section">
+             <div class="section-title-container apple-fade-in-up">
+                <h2 class="text-primary">02. My Toolkit</h2>
+                <div class="line"></div>
+            </div>
+            <p class="text-center text-lg mb-12 max-w-2xl mx-auto apple-fade-in-up delay-100">Here are a few technologies and areas I've been working with and developing expertise in:</p>
+            <div id="skillsGrid" class="skills-grid">
+                <div class="skill-card card-base p-6 rounded-md apple-fade-in-up delay-200">
+                    <h4 class="text-xl mb-2">Python</h4>
+                    <p class="text-sm">A versatile language for scripting, backend development, data analysis, and machine learning applications.</p>
+                </div>
+                <div class="skill-card card-base p-6 rounded-md apple-fade-in-up delay-300">
+                    <h4 class="text-xl mb-2">SQL</h4>
+                    <p class="text-sm">Proficient in querying and managing relational databases to extract and manipulate data effectively.</p>
+                </div>
+                <div class="skill-card card-base p-6 rounded-md apple-fade-in-up delay-400">
+                    <h4 class="text-xl mb-2">Data Science</h4>
+                    <p class="text-sm">Exploring techniques for data mining, statistical analysis, and deriving insights from complex datasets.</p>
+                </div>
+                <div class="skill-card card-base p-6 rounded-md apple-fade-in-up delay-200 sm:delay-500">
+                    <h4 class="text-xl mb-2">Machine Learning</h4>
+                    <p class="text-sm">Learning foundational concepts and algorithms to build predictive models and intelligent systems.</p>
+                </div>
+                <div class="skill-card card-base p-6 rounded-md apple-fade-in-up delay-300 sm:delay-200 lg:delay-600">
+                    <h4 class="text-xl mb-2">Software Development</h4>
+                    <p class="text-sm">Understanding principles of software architecture, development lifecycles, and best practices.</p>
+                </div>
+                 <div class="skill-card card-base p-6 rounded-md apple-fade-in-up delay-400 sm:delay-300 lg:delay-200">
+                    <h4 class="text-xl mb-2">Algorithm Design</h4>
+                    <p class="text-sm">Focusing on creating efficient and scalable solutions to computational problems.</p>
+                </div>
+                <div class="skill-card card-base p-6 rounded-md apple-fade-in-up delay-500 sm:delay-400 lg:delay-300">
+                    <h4 class="text-xl mb-2">Visual Studio Code</h4>
+                    <p class="text-sm">My go-to code editor, valued for its flexibility, extensive features, and customization.</p>
+                </div>
+                <div class="skill-card card-base p-6 rounded-md apple-fade-in-up delay-600 sm:delay-500 lg:delay-400">
+                    <h4 class="text-xl mb-2">Jupyter Notebooks</h4>
+                    <p class="text-sm">Utilized for interactive data analysis, visualization, and rapid prototyping of ML models.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="section">
+            <div class="section-title-container apple-fade-in-up">
+                <h2 class="text-primary">03. Things I've Built</h2>
+                <div class="line"></div>
+            </div>
+            <div class="grid grid-cols-1 gap-12">
+                <div class="project-card card-base p-8 rounded-md apple-fade-in-up delay-200">
+                    <header class="mb-4">
+                        <div class="flex justify-between items-baseline">
+                            <h3 class="project-title text-2xl font-semibold mb-1">
+                                <a href="https://github.com/Prithish-22/Netflix-Project" target="_blank" rel="noopener noreferrer" class="transition-colors">Netflix Recommendation Project</a>
+                            </h3>
+                            <div class="project-link text-secondary text-sm">
+                                <a href="https://github.com/Prithish-22/Netflix-Project" target="_blank" rel="noopener noreferrer" class="flex items-center transition-colors">
+                                    <span class="mr-1">GitHub</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                                </a>
+                            </div>
+                        </div>
+                        <p class="text-teal text-sm">A practical application of collaborative filtering.</p>
+                    </header>
+                    <div class="text-base leading-relaxed">
+                        <p>
+                            A recommendation engine developed to predict movie ratings for users, mirroring Netflix's content suggestion system. This project leverages Singular Value Decomposition (SVD), a powerful matrix factorization technique, to identify latent user preferences and item features from a large dataset, ultimately providing personalized movie suggestions.
+                        </p>
+                    </div>
+                    <footer class="mt-6">
+                        <ul class="flex flex-wrap text-sm font-medium">
+                            <li class="project-tech-item mr-3 mb-2 px-3 py-1 rounded-full">Python</li>
+                            <li class="project-tech-item mr-3 mb-2 px-3 py-1 rounded-full">Pandas</li>
+                            <li class="project-tech-item mr-3 mb-2 px-3 py-1 rounded-full">NumPy</li>
+                            <li class="project-tech-item mr-3 mb-2 px-3 py-1 rounded-full">Scikit-learn</li>
+                            <li class="project-tech-item mr-3 mb-2 px-3 py-1 rounded-full">SVD</li>
+                        </ul>
+                    </footer>
+                </div>
+                <div class="project-card card-base p-8 rounded-md apple-fade-in-up delay-300">
+                    <header class="mb-4">
+                        <div class="flex justify-between items-baseline">
+                            <h3 class="project-title text-2xl font-semibold mb-1">
+                                <a href="#" target="_blank" rel="noopener noreferrer" class="transition-colors">Object Detection using Machine Learning</a>
+                            </h3>
+                            <div class="project-link text-secondary text-sm">
+                            </div>
+                        </div>
+                        <p class="text-teal text-sm">A computer vision model to identify and locate objects.</p>
+                    </header>
+                    <div class="text-base leading-relaxed">
+                        <p>
+                            This project implements a machine learning model capable of real-time object detection. By leveraging computer vision techniques and a pre-trained neural network, the system can process images or video streams to identify, classify, and draw bounding boxes around various objects. It demonstrates a practical application of ML in fields like automated surveillance and image analysis.
+                        </p>
+                    </div>
+                    <footer class="mt-6">
+                        <ul class="flex flex-wrap text-sm font-medium">
+                            <li class="project-tech-item mr-3 mb-2 px-3 py-1 rounded-full">Python</li>
+                            <li class="project-tech-item mr-3 mb-2 px-3 py-1 rounded-full">OpenCV</li>
+                            <li class="project-tech-item mr-3 mb-2 px-3 py-1 rounded-full">TensorFlow</li>
+                            <li class="project-tech-item mr-3 mb-2 px-3 py-1 rounded-full">Machine Learning</li>
+                            <li class="project-tech-item mr-3 mb-2 px-3 py-1 rounded-full">Computer Vision</li>
+                        </ul>
+                    </footer>
+                </div>
+            </div>
+        </section>
+
+        <section id="education" class="section">
+            <div class="section-title-container apple-fade-in-up">
+                <h2 class="text-primary">04. Academic Pursuits</h2>
+                <div class="line"></div>
+            </div>
+            <div class="space-y-8 max-w-3xl mx-auto">
+                <div class="education-card card-base p-6 rounded-md apple-fade-in-up delay-100">
+                    <h3 class="text-xl md:text-2xl text-primary mb-1">B.A. English – 2nd Year</h3>
+                    <p class="text-sm text-teal mb-2">Voorhees College</p>
+                    <p class="text-base leading-relaxed">Currently deepening my understanding of literature, critical theory, and effective communication. This humanities foundation sharpens my analytical skills and provides a unique lens for approaching technological challenges with creativity and empathy.</p>
+                </div>
+                <div class="education-card card-base p-6 rounded-md apple-fade-in-up delay-200">
+                    <h3 class="text-xl md:text-2xl text-primary mb-1">Professional Certification – Software Engineering</h3>
+                    <p class="text-sm text-teal mb-2">Specialization in Data Science | Intellipaat</p>
+                    <p class="text-base leading-relaxed">An intensive program focused on practical software development, data analysis, machine learning principles, and algorithmic problem-solving. This certification is equipping me with the hands-on skills to design, build, and deploy robust software solutions.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="certifications" class="section">
+            <div class="section-title-container apple-fade-in-up">
+                <h2 class="text-primary">05. Certifications</h2>
+                <div class="line"></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="project-card card-base p-6 rounded-md apple-fade-in-up delay-100">
+                    <header>
+                        <div class="flex justify-between items-start">
+                            <h3 class="project-title text-xl font-semibold mb-1">
+                                <a href="https://lms.intellipaat.com/certificate-link/?Yz01OTEwJnU9MjczNDU1JmV4dD0x" target="_blank" rel="noopener noreferrer" class="transition-colors">Python Certification</a>
+                            </h3>
+                            <div class="project-link text-secondary text-sm flex-shrink-0 ml-4">
+                                <a href="https://lms.intellipaat.com/certificate-link/?Yz01OTEwJnU9MjczNDU1JmV4dD0x" target="_blank" rel="noopener noreferrer" class="flex items-center transition-colors">
+                                    <span class="mr-1 hidden sm:inline">View</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                                </a>
+                            </div>
+                        </div>
+                        <p class="text-teal text-sm">Issued by: Intellipaat</p>
+                    </header>
+                </div>
+                <div class="project-card card-base p-6 rounded-md apple-fade-in-up delay-200">
+                     <header>
+                        <div class="flex justify-between items-start">
+                            <h3 class="project-title text-xl font-semibold mb-1">
+                                <a href="https://lms.intellipaat.com/certificate-link/?Yz1jdXMtOTEzMTY3JnU9MjczNDU1JmV4dD0x" target="_blank" rel="noopener noreferrer" class="transition-colors">MS SQL Server</a>
+                            </h3>
+                            <div class="project-link text-secondary text-sm flex-shrink-0 ml-4">
+                                <a href="https://lms.intellipaat.com/certificate-link/?Yz1jdXMtOTEzMTY3JnU9MjczNDU1JmV4dD0x" target="_blank" rel="noopener noreferrer" class="flex items-center transition-colors">
+                                   <span class="mr-1 hidden sm:inline">View</span>
+                                   <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                                </a>
+                            </div>
+                        </div>
+                        <p class="text-teal text-sm">Issued by: Intellipaat</p>
+                    </header>
+                </div>
+                <div class="project-card card-base p-6 rounded-md apple-fade-in-up delay-300">
+                     <header>
+                        <div class="flex justify-between items-start">
+                            <h3 class="project-title text-xl font-semibold mb-1">
+                                <a href="https://lms.intellipaat.com/certificate-link/?Yz1jdXMtOTEzMzgwJnU9MjczNDU1JmV4dD0x" target="_blank" rel="noopener noreferrer" class="transition-colors">Data Science Course</a>
+                            </h3>
+                            <div class="project-link text-secondary text-sm flex-shrink-0 ml-4">
+                                <a href="https://lms.intellipaat.com/certificate-link/?Yz1jdXMtOTEzMzgwJnU9MjczNDU1JmV4dD0x" target="_blank" rel="noopener noreferrer" class="flex items-center transition-colors">
+                                   <span class="mr-1 hidden sm:inline">View</span>
+                                   <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                                </a>
+                            </div>
+                        </div>
+                        <p class="text-teal text-sm">Issued by: Intellipaat</p>
+                    </header>
+                </div>
+                <div class="project-card card-base p-6 rounded-md apple-fade-in-up delay-400">
+                     <header>
+                        <div class="flex justify-between items-start">
+                            <h3 class="project-title text-xl font-semibold mb-1">
+                                <a href="https://drive.google.com/file/d/10fubAHchEUqRcQqqzWyGCMgdLyLCinaE/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="transition-colors">AI Chat Prompt For Business Analysis</a>
+                            </h3>
+                            <div class="project-link text-secondary text-sm flex-shrink-0 ml-4">
+                                <a href="https://drive.google.com/file/d/10fubAHchEUqRcQqqzWyGCMgdLyLCinaE/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="flex items-center transition-colors">
+                                   <span class="mr-1 hidden sm:inline">View</span>
+                                   <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                                </a>
+                            </div>
+                        </div>
+                        <p class="text-teal text-sm">Issued by: NASBA (via LinkedIn)</p>
+                    </header>
+                </div>
+                <div class="project-card card-base p-6 rounded-md apple-fade-in-up delay-100">
+                     <header>
+                        <div class="flex justify-between items-start">
+                            <h3 class="project-title text-xl font-semibold mb-1">
+                                <a href="https://lms.intellipaat.com/certificate-link/?Yz1jdXMtOTEzNDIxJnU9MjczNDU1JmV4dD0x" target="_blank" rel="noopener noreferrer" class="transition-colors">Power BI</a>
+                            </h3>
+                            <div class="project-link text-secondary text-sm flex-shrink-0 ml-4">
+                                <a href="https://lms.intellipaat.com/certificate-link/?Yz1jdXMtOTEzNDIxJnU9MjczNDU1JmV4dD0x" target="_blank" rel="noopener noreferrer" class="flex items-center transition-colors">
+                                   <span class="mr-1 hidden sm:inline">View</span>
+                                   <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                                </a>
+                            </div>
+                        </div>
+                        <p class="text-teal text-sm">Issued by: Intellipaat</p>
+                    </header>
+                </div>
+                <div class="project-card card-base p-6 rounded-md apple-fade-in-up delay-200">
+                     <header>
+                        <div class="flex justify-between items-start">
+                            <h3 class="project-title text-xl font-semibold mb-1">
+                                <a href="https://lms.intellipaat.com/certificate-link/?Yz0yNjYwOSZ1PTI3MzQ1NSZleHQ9MQ==" target="_blank" rel="noopener noreferrer" class="transition-colors">Advanced Certificate in Microsoft Excel</a>
+                            </h3>
+                            <div class="project-link text-secondary text-sm flex-shrink-0 ml-4">
+                                <a href="https://lms.intellipaat.com/certificate-link/?Yz0yNjYwOSZ1PTI3MzQ1NSZleHQ9MQ==" target="_blank" rel="noopener noreferrer" class="flex items-center transition-colors">
+                                   <span class="mr-1 hidden sm:inline">View</span>
+                                   <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                                </a>
+                            </div>
+                        </div>
+                        <p class="text-teal text-sm">Issued by: Intellipaat</p>
+                    </header>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="section text-center">
+             <div class="apple-fade-in-up">
+                <p class="text-md text-teal mb-2">06. What's Next?</p>
+                <h2 class="text-3xl md:text-4xl lg:text-5xl text-primary mb-6">Get In Touch</h2>
+                <p class="max-w-xl mx-auto text-base md:text-lg leading-relaxed mb-10">
+                    I'm actively seeking opportunities to apply my skills and contribute to innovative projects. Whether you have a question, a potential collaboration, or just want to connect, I'd love to hear from you.
+                </p>
+                <a href="mailto:t.biju.krithik@gmail.com" class="cta-button text-lg py-4 px-8">
+                    Say Hello
+                </a>
+            </div>
+
+            <div class="mt-20 flex justify-center space-x-6 apple-fade-in-up delay-200">
+                 <a href="mailto:t.biju.krithik@gmail.com" class="contact-icon-link text-secondary hover:text-teal" aria-label="Email">
+                    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                </a>
+                <a href="https://wa.me/9944408977" target="_blank" rel="noopener noreferrer" class="contact-icon-link text-secondary hover:text-teal" aria-label="WhatsApp">
+                     <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01s-.521.074-.792.372c-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.626.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.289.173-1.413z"/></svg>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="text-center py-10 mt-10 border-t border-opacity-20" style="border-color: var(--border-color);">
+        <p class="text-sm text-secondary">&copy; <span id="currentYear"></span> Prithish Raj T. All Rights Reserved.</p>
+        <p class="text-xs text-secondary opacity-70 mt-1">Designed & Built by Prithish Raj T.</p>
+    </footer>
+
+    <!-- Full-screen transition overlay -->
+    <div id="transition-overlay">
+        <div id="logo-wrapper">
+            <svg id="transition-logo" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
+                <path d="M20 80 V 20 H 45 A 15 15, 0, 1, 1, 45, 50 H 20"/>
+                <path d="M50 80 V 20 H 75 A 15 15, 0, 0, 1, 75, 50 L 50 50 L 80 80"/>
+                <path d="M10 20 H 90 M 50 20 V 80"/>
+            </svg>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- CUSTOM CURSOR LOGIC (UPDATED FOR SMOOTHNESS) ---
+            const cursorDot = document.querySelector('.cursor-dot');
+            const cursorOutline = document.querySelector('.cursor-outline');
+            const interactiveElements = document.querySelectorAll('a, button, .skill-card');
+
+            let mouseX = 0;
+            let mouseY = 0;
+            let outlineX = 0;
+            let outlineY = 0;
+
+            window.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+                
+                // Dot follows mouse instantly
+                cursorDot.style.left = `${mouseX}px`;
+                cursorDot.style.top = `${mouseY}px`;
+            });
+
+            // Smooth Lerp Animation for Cursor Outline
+            function animateCursor() {
+                let dist = 0.2; // Optimized for performance (smoother)
+                
+                outlineX += (mouseX - outlineX) * dist;
+                outlineY += (mouseY - outlineY) * dist;
+                
+                cursorOutline.style.left = `${outlineX}px`;
+                cursorOutline.style.top = `${outlineY}px`;
+                
+                requestAnimationFrame(animateCursor);
+            }
+            animateCursor();
+
+            interactiveElements.forEach((el) => {
+                el.addEventListener('mouseenter', () => {
+                    cursorOutline.classList.add('hover');
+                });
+                el.addEventListener('mouseleave', () => {
+                    cursorOutline.classList.remove('hover');
+                });
+            });
+
+            // --- TYPEWRITER EFFECT (OPTIMIZED START) ---
+            const textElement = document.getElementById('typewriter');
+            const phrases = ['Data Scientist', 'Software Engineer', 'Creative Thinker', 'Problem Solver'];
+            let phraseIndex = 0;
+            let charIndex = 0;
+            let isDeleting = false;
+            let typeSpeed = 100;
+
+            function type() {
+                const currentPhrase = phrases[phraseIndex];
+                
+                if (isDeleting) {
+                    textElement.textContent = currentPhrase.substring(0, charIndex - 1);
+                    charIndex--;
+                    typeSpeed = 50; 
+                } else {
+                    textElement.textContent = currentPhrase.substring(0, charIndex + 1);
+                    charIndex++;
+                    typeSpeed = 100;
+                }
+
+                if (!isDeleting && charIndex === currentPhrase.length) {
+                    isDeleting = true;
+                    typeSpeed = 2000; // Pause at end
+                } else if (isDeleting && charIndex === 0) {
+                    isDeleting = false;
+                    phraseIndex = (phraseIndex + 1) % phrases.length;
+                    typeSpeed = 500; // Pause before new word
+                }
+
+                setTimeout(type, typeSpeed);
+            }
+            
+            // Optimized start delay: 1000 -> 100ms
+            if(textElement) {
+                setTimeout(type, 100);
+            }
+
+            // --- 3D TILT EFFECT FOR CARDS ---
+            const cards = document.querySelectorAll('.card-base');
+
+            cards.forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    // Calculate rotation based on mouse position
+                    // Center is (0,0), range is -1 to 1
+                    const xPct = (x / rect.width) - 0.5;
+                    const yPct = (y / rect.height) - 0.5;
+                    
+                    // Limit rotation to small angles
+                    const xRot = yPct * -10; // Rotate around X axis (up/down tilt)
+                    const yRot = xPct * 10;  // Rotate around Y axis (left/right tilt)
+                    
+                    card.style.transform = `perspective(1000px) rotateX(${xRot}deg) rotateY(${yRot}deg) scale(1.02)`;
+                });
+
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
+                });
+            });
+
+            // --- SCROLL PROGRESS BAR ---
+            const scrollProgress = document.getElementById('scroll-progress');
+            window.addEventListener('scroll', () => {
+                const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+                const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrolled = (scrollTop / scrollHeight) * 100;
+                scrollProgress.style.width = scrolled + '%';
+            });
+
+
+            // --- PARTICLE BACKGROUND ANIMATION (OPTIMIZED) ---
+            const canvas = document.getElementById('particle-canvas');
+            const ctx = canvas.getContext('2d');
+            let particlesArray;
+
+            // Set canvas size
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            // Handle resize
+            window.addEventListener('resize', () => {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+                init();
+            });
+
+            // Create particle class
+            class Particle {
+                constructor(x, y, directionX, directionY, size, color) {
+                    this.x = x;
+                    this.y = y;
+                    this.directionX = directionX;
+                    this.directionY = directionY;
+                    this.size = size;
+                    this.color = color;
+                }
+                // Method to draw individual particle
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+                    ctx.fillStyle = this.color;
+                    ctx.fill();
+                }
+                // Check particle position, check mouse position, move the particle, draw the particle
+                update() {
+                    // Check if particle is still within canvas
+                    if (this.x > canvas.width || this.x < 0) {
+                        this.directionX = -this.directionX;
+                    }
+                    if (this.y > canvas.height || this.y < 0) {
+                        this.directionY = -this.directionY;
+                    }
+
+                    // Move particle
+                    this.x += this.directionX;
+                    this.y += this.directionY;
+
+                    // Draw particle
+                    this.draw();
+                }
+            }
+
+            // Create particle array
+            function init() {
+                particlesArray = [];
+                // OPTIMIZATION: Reduced particle density. Divisor changed from 15000 to 25000.
+                let numberOfParticles = (canvas.height * canvas.width) / 25000;
+                for (let i = 0; i < numberOfParticles; i++) {
+                    let size = (Math.random() * 2) + 1;
+                    let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2);
+                    let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
+                    let directionX = (Math.random() * 0.4) - 0.2;
+                    let directionY = (Math.random() * 0.4) - 0.2;
+                    
+                    let color = document.documentElement.getAttribute('data-theme') === 'light' ? 'rgba(0,0,0,0.1)' : 'rgba(255,255,255,0.1)';
+
+                    particlesArray.push(new Particle(x, y, directionX, directionY, size, color));
+                }
+            }
+
+            // Animation loop
+            function animate() {
+                requestAnimationFrame(animate);
+                ctx.clearRect(0, 0, innerWidth, innerHeight);
+
+                let lineColor = document.documentElement.getAttribute('data-theme') === 'light' ? 'rgba(0,0,0,0.05)' : 'rgba(255,255,255,0.05)';
+                let particleColor = document.documentElement.getAttribute('data-theme') === 'light' ? 'rgba(0,0,0,0.1)' : 'rgba(255,255,255,0.1)';
+
+
+                for (let i = 0; i < particlesArray.length; i++) {
+                    particlesArray[i].color = particleColor;
+                    particlesArray[i].update();
+                }
+                connect(lineColor);
+            }
+
+            // Check if particles are close enough to draw line between them
+            function connect(lineColor) {
+                let opacityValue = 1;
+                for (let a = 0; a < particlesArray.length; a++) {
+                    for (let b = a; b < particlesArray.length; b++) {
+                        let distance = ((particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x)) + ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y));
+                        if (distance < (canvas.width/7) * (canvas.height/7)) {
+                            opacityValue = 1 - (distance/20000);
+                            ctx.strokeStyle = lineColor;
+                            ctx.lineWidth = 1;
+                            ctx.beginPath();
+                            ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
+                            ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
+                            ctx.stroke();
+                        }
+                    }
+                }
+            }
+
+            init();
+            animate();
+
+            // --- END PARTICLE BACKGROUND ANIMATION ---
+
+
+            const navbar = document.getElementById('navbar');
+            const transitionOverlay = document.getElementById('transition-overlay');
+            const learnMoreBtn = document.getElementById('learn-more-btn');
+            let isTransitioning = false;
+            let firstScrollDone = false;
+
+            // --- THEME TOGGLE LOGIC ---
+            const themeToggleButton = document.getElementById('theme-toggle-button');
+            const mobileThemeToggleButton = document.getElementById('mobile-theme-toggle-button');
+            
+            const sunIcon = document.getElementById('theme-icon-sun');
+            const moonIcon = document.getElementById('theme-icon-moon');
+            const mobileSunIcon = document.getElementById('mobile-theme-icon-sun');
+            const mobileMoonIcon = document.getElementById('mobile-theme-icon-moon');
+
+            const userTheme = localStorage.getItem('theme');
+            const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+            const applyTheme = (theme) => {
+                document.documentElement.setAttribute('data-theme', theme);
+                if (theme === 'dark') {
+                    sunIcon.classList.add('hidden');
+                    moonIcon.classList.remove('hidden');
+                    mobileSunIcon.classList.add('hidden');
+                    mobileMoonIcon.classList.remove('hidden');
+                } else {
+                    sunIcon.classList.remove('hidden');
+                    moonIcon.classList.add('hidden');
+                    mobileSunIcon.classList.remove('hidden');
+                    mobileMoonIcon.classList.add('hidden');
+                }
+            };
+
+            const toggleTheme = () => {
+                const currentTheme = document.documentElement.getAttribute('data-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                localStorage.setItem('theme', newTheme);
+                applyTheme(newTheme);
+            };
+
+            themeToggleButton.addEventListener('click', toggleTheme);
+            mobileThemeToggleButton.addEventListener('click', toggleTheme);
+
+            // Apply initial theme
+            if (userTheme) {
+                applyTheme(userTheme);
+            } else {
+                applyTheme(systemTheme ? 'dark' : 'light');
+            }
+
+            // --- Reusable Transition Function ---
+            function triggerTransition(targetElement) {
+                if (isTransitioning) return;
+                isTransitioning = true;
+                
+                document.body.classList.add('no-scroll');
+                transitionOverlay.classList.add('is-active');
+
+                setTimeout(() => {
+                    transitionOverlay.classList.add('is-moving');
+                }, 1000);
+
+                setTimeout(() => {
+                    if (targetElement) {
+                        const navbarHeight = navbar ? navbar.offsetHeight : 0;
+                        const topPosition = targetElement.offsetTop - navbarHeight;
+                        window.scrollTo({ top: topPosition, behavior: 'smooth' });
+                    }
+                    transitionOverlay.style.opacity = '0';
+                    setTimeout(() => {
+                        transitionOverlay.classList.remove('is-active', 'is-moving');
+                        transitionOverlay.style.opacity = '';
+                        document.body.classList.remove('no-scroll');
+                        isTransitioning = false;
+                    }, 400);
+                }, 1800);
+            }
+
+            // --- Event Listeners ---
+            if (learnMoreBtn) {
+                learnMoreBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    if (!firstScrollDone) {
+                        firstScrollDone = true;
+                        const targetElement = document.querySelector(this.getAttribute('href'));
+                        triggerTransition(targetElement);
+                    } else {
+                          const targetElement = document.querySelector(this.getAttribute('href'));
+                          const navbarHeight = navbar ? navbar.offsetHeight : 0;
+                          const topPosition = targetElement.offsetTop - navbarHeight;
+                          window.scrollTo({ top: topPosition, behavior: 'smooth' });
+                    }
+                });
+            }
+
+            function handleFirstScroll() {
+                if (window.scrollY > 10 && !firstScrollDone) {
+                    firstScrollDone = true;
+                    const targetElement = document.getElementById('about');
+                    window.scrollTo(0, 0);
+                    triggerTransition(targetElement);
+                }
+            }
+            window.addEventListener('scroll', handleFirstScroll, { once: true });
+
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (mobileMenuButton && mobileMenu) {
+                mobileMenuButton.addEventListener('click', () => {
+                    const isHidden = mobileMenu.classList.toggle('hidden');
+                    mobileMenuButton.setAttribute('aria-expanded', !isHidden);
+                });
+            }
+
+            const mobileNavLinks = mobileMenu ? mobileMenu.querySelectorAll('a[href^="#"]') : [];
+            mobileNavLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                    if (mobileMenuButton) mobileMenuButton.setAttribute('aria-expanded', 'false');
+                });
+            });
+
+            const navLinksDesktop = document.querySelectorAll('nav .hidden.md\\:flex a.nav-link');
+            const navLinksMobile = document.querySelectorAll('#mobile-menu a.nav-link');
+            const allNavLinks = [...navLinksDesktop, ...navLinksMobile];
+            const sections = document.querySelectorAll('main section[id]');
+
+            function changeNav() {
+                let currentSectionId = 'home';
+                const navbarHeight = navbar ? navbar.offsetHeight : 70;
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    if (pageYOffset >= sectionTop - navbarHeight - (sectionHeight * 0.4)) {
+                        currentSectionId = section.getAttribute('id');
+                    }
+                });
+                allNavLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${currentSectionId}`) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+            window.addEventListener('scroll', changeNav);
+            window.addEventListener('load', changeNav);
+
+            const scrollElements = document.querySelectorAll('.apple-fade-in-up');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) entry.target.classList.add('visible');
+                });
+            }, { root: null, rootMargin: '0px 0px -50px 0px', threshold: 0.1 });
+            scrollElements.forEach(el => observer.observe(el));
+
+            const skillsGrid = document.getElementById('skillsGrid');
+            const skillCards = skillsGrid ? skillsGrid.querySelectorAll('.skill-card') : [];
+            skillCards.forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    if (skillsGrid) skillsGrid.classList.add('has-hovered-card');
+                    card.classList.add('is-hovered');
+                });
+                card.addEventListener('mouseleave', () => {
+                    if (skillsGrid) skillsGrid.classList.remove('has-hovered-card');
+                    card.classList.remove('is-hovered');
+                });
+            });
+
+            const currentYearEl = document.getElementById('currentYear');
+            if (currentYearEl) currentYearEl.textContent = new Date().getFullYear();
+
+            let lastScrollTop = 0;
+            window.addEventListener("scroll", function() {
+                let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+                if (navbar) {
+                    if (currentScroll > lastScrollTop && currentScroll > navbar.offsetHeight + 50) {
+                        navbar.style.top = `-${navbar.offsetHeight}px`;
+                    } else {
+                        navbar.style.top = "0";
+                    }
+                }
+                lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+            }, false);
+        });
+    </script>
+</body>
+</html>
