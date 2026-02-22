@@ -14,6 +14,13 @@
         body {
             cursor: none; /* Hide the default cursor */
         }
+        
+        /* Mobile Optimization: Disable custom cursor and restore default on touch devices */
+        @media (hover: none) and (pointer: coarse) {
+            body { cursor: auto !important; }
+            .cursor-dot, .cursor-outline { display: none !important; }
+        }
+
         .cursor-dot,
         .cursor-outline {
             pointer-events: none;
@@ -266,6 +273,38 @@
         .delay-500.visible { transition-delay: 0.5s !important; }
         .delay-600.visible { transition-delay: 0.6s !important; }
 
+        /* FEATURED CERTIFICATE ANIMATION */
+        .featured-cert-reveal {
+            opacity: 0;
+            transform: scale(0.7) translateY(40px);
+            filter: blur(15px);
+            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .featured-cert-reveal.visible {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+            filter: blur(0);
+        }
+        
+        .featured-cert-reveal .cert-part {
+            opacity: 0;
+            transform: translateY(20px) scale(0.95);
+            filter: blur(10px);
+            transition: all 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .featured-cert-reveal.visible .cert-part {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            filter: blur(0);
+        }
+        
+        /* Staggered delays for the "assembling" effect */
+        .featured-cert-reveal.visible .cert-part-1 { transition-delay: 0.4s; }
+        .featured-cert-reveal.visible .cert-part-2 { transition-delay: 0.6s; }
+        .featured-cert-reveal.visible .cert-part-3 { transition-delay: 0.75s; }
+        .featured-cert-reveal.visible .cert-part-4 { transition-delay: 0.9s; }
+        .featured-cert-reveal.visible .cert-part-5 { transition-delay: 1.05s; }
+
         .card-base {
             background-color: var(--bg-secondary);
             border: 1px solid var(--border-color);
@@ -495,7 +534,7 @@
                 <a href="#contact" class="nav-link text-sm font-medium">Contact</a>
                 <div class="flex items-center space-x-4">
                     <!-- UPDATED RESUME LINK BELOW (DESKTOP) -->
-                    <a href="https://drive.google.com/file/d/1arOqVNJn0OvztUpfEV2IckHOQKi4t9_z/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="cta-button !py-2 !px-4 !text-sm">Resume</a>
+                    <a href="https://drive.google.com/file/d/18YX2FFgxeOojemDrvt7gpuB9uKl6ZPfd/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="cta-button !py-2 !px-4 !text-sm">Resume</a>
                     
                     <!-- === THEME TOGGLE BUTTON START === -->
                     <button id="theme-toggle-button" aria-label="Toggle theme">
@@ -527,7 +566,7 @@
             <a href="#certifications" class="block nav-link text-center py-3 px-4 text-base hover:bg-tertiary">Certifications</a>
             <a href="#contact" class="block nav-link text-center py-3 px-4 text-base hover:bg-tertiary">Contact</a>
             <!-- UPDATED RESUME LINK BELOW (MOBILE) -->
-            <a href="https://drive.google.com/file/d/1arOqVNJn0OvztUpfEV2IckHOQKi4t9_z/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="block text-teal text-center py-3 px-4 text-base hover:bg-tertiary">Resume</a>
+            <a href="https://drive.google.com/file/d/18YX2FFgxeOojemDrvt7gpuB9uKl6ZPfd/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="block text-teal text-center py-3 px-4 text-base hover:bg-tertiary">Resume</a>
         </div>
     </nav>
 
@@ -560,7 +599,7 @@
                         <a href="https://www.linkedin.com/in/prithish-raj-9bb884349" target="_blank" rel="noopener noreferrer" class="contact-icon-link text-secondary hover:text-teal transition-colors" aria-label="LinkedIn">
                             <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
                         </a>
-                        <a href="mailto:t.biju.krithik@gmail.com" class="contact-icon-link text-secondary hover:text-teal transition-colors" aria-label="Email">
+                        <a href="mailto:prithish483@gmail.com" class="contact-icon-link text-secondary hover:text-teal transition-colors" aria-label="Email">
                             <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
                         </a>
                     </div>
@@ -630,14 +669,6 @@
                 <div class="skill-card card-base p-6 rounded-md apple-fade-in-up delay-200 sm:delay-500">
                     <h4 class="text-xl mb-2">Machine Learning</h4>
                     <p class="text-sm">Learning foundational concepts and algorithms to build predictive models and intelligent systems.</p>
-                </div>
-                <div class="skill-card card-base p-6 rounded-md apple-fade-in-up delay-300 sm:delay-200 lg:delay-600">
-                    <h4 class="text-xl mb-2">Software Development</h4>
-                    <p class="text-sm">Understanding principles of software architecture, development lifecycles, and best practices.</p>
-                </div>
-                 <div class="skill-card card-base p-6 rounded-md apple-fade-in-up delay-400 sm:delay-300 lg:delay-200">
-                    <h4 class="text-xl mb-2">Algorithm Design</h4>
-                    <p class="text-sm">Focusing on creating efficient and scalable solutions to computational problems.</p>
                 </div>
                 <div class="skill-card card-base p-6 rounded-md apple-fade-in-up delay-500 sm:delay-400 lg:delay-300">
                     <h4 class="text-xl mb-2">Visual Studio Code</h4>
@@ -727,9 +758,12 @@
                     <p class="text-base leading-relaxed">Currently deepening my understanding of literature, critical theory, and effective communication. This humanities foundation sharpens my analytical skills and provides a unique lens for approaching technological challenges with creativity and empathy.</p>
                 </div>
                 <div class="education-card card-base p-6 rounded-md apple-fade-in-up delay-200">
-                    <h3 class="text-xl md:text-2xl text-primary mb-1">Professional Certification – Software Engineering</h3>
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-1 gap-2">
+                         <h3 class="text-xl md:text-2xl text-primary">Professional Certification – Software Engineering</h3>
+                         <span class="bg-teal text-[var(--bg-primary)] text-xs font-bold px-3 py-1.5 rounded-full inline-block w-fit tracking-wider">COMPLETED</span>
+                    </div>
                     <p class="text-sm text-teal mb-2">Specialization in Data Science | Intellipaat</p>
-                    <p class="text-base leading-relaxed">An intensive program focused on practical software development, data analysis, machine learning principles, and algorithmic problem-solving. This certification is equipping me with the hands-on skills to design, build, and deploy robust software solutions.</p>
+                    <p class="text-base leading-relaxed">Successfully completed an intensive program focused on practical software development, data analysis, machine learning principles, and algorithmic problem-solving. This certification has equipped me with the hands-on skills to design, build, and deploy robust software solutions and data-driven applications.</p>
                 </div>
             </div>
         </section>
@@ -740,7 +774,40 @@
                 <div class="line"></div>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="project-card card-base p-6 rounded-md apple-fade-in-up delay-100">
+                
+                <!-- FEATURED BIG CERTIFICATE -->
+                <!-- Removed 'card-base' to stop the tilt effect, added explicit bg/border classes, and changed animation to 'featured-cert-reveal' -->
+                <div class="md:col-span-2 project-card featured-cert-reveal bg-[var(--bg-secondary)] border border-[var(--border-color)] p-6 md:p-8 rounded-lg border-l-4 border-[var(--text-accent)] shadow-[0_0_15px_-3px_var(--accent-tint)]">
+                    <div class="flex flex-col md:flex-row gap-6 md:gap-10 items-center md:items-stretch">
+                        <!-- Certificate Image Thumbnail -->
+                        <div class="w-full md:w-2/5 flex-shrink-0 flex items-center justify-center cert-part cert-part-1">
+                            <a href="https://tih.iitr.ac.in/certificate/intellipaat/IPTIH25121787.jpg" target="_blank" rel="noopener noreferrer" class="relative group block overflow-hidden rounded shadow-lg border border-[var(--border-color)]">
+                                <img src="https://tih.iitr.ac.in/certificate/intellipaat/IPTIH25121787.jpg" alt="Data Science Certificate" class="w-full h-auto object-cover transform transition-transform duration-500 group-hover:scale-105">
+                                <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 transition-all duration-300 flex items-center justify-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 drop-shadow-md" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                                </div>
+                            </a>
+                        </div>
+                        <!-- Certificate Details -->
+                        <div class="flex-grow flex flex-col justify-center text-center md:text-left">
+                            <h3 class="project-title text-2xl md:text-3xl font-bold mb-3 cert-part cert-part-2">
+                                <a href="https://tih.iitr.ac.in/certificate/intellipaat/IPTIH25121787.jpg" target="_blank" rel="noopener noreferrer" class="transition-colors text-gradient">Professional Certification in Software Engineering & Data Science</a>
+                            </h3>
+                            <p class="text-[var(--text-accent)] text-sm md:text-base mb-4 font-medium tracking-wide cert-part cert-part-3">Issued by: Intellipaat & iHUB DivyaSampark (IIT Roorkee)</p>
+                            <p class="text-base leading-relaxed mb-6 cert-part cert-part-4">
+                                This is my primary professional certification marking the successful completion of an intensive curriculum. It validates my hands-on capability to build data-driven applications, leverage Machine Learning, and solve complex analytical problems using Python and SQL.
+                            </p>
+                            <div class="mt-auto pt-2 flex justify-center md:justify-start cert-part cert-part-5">
+                                <a href="https://tih.iitr.ac.in/certificate/intellipaat/IPTIH25121787.jpg" target="_blank" rel="noopener noreferrer" class="cta-button">
+                                    View Full Certificate
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Secondary Certificates -->
+                <div class="project-card card-base p-6 rounded-md apple-fade-in-up delay-200">
                     <header>
                         <div class="flex justify-between items-start">
                             <h3 class="project-title text-xl font-semibold mb-1">
@@ -756,7 +823,8 @@
                         <p class="text-teal text-sm">Issued by: Intellipaat</p>
                     </header>
                 </div>
-                <div class="project-card card-base p-6 rounded-md apple-fade-in-up delay-200">
+                
+                <div class="project-card card-base p-6 rounded-md apple-fade-in-up delay-300">
                      <header>
                         <div class="flex justify-between items-start">
                             <h3 class="project-title text-xl font-semibold mb-1">
@@ -772,7 +840,8 @@
                         <p class="text-teal text-sm">Issued by: Intellipaat</p>
                     </header>
                 </div>
-                <div class="project-card card-base p-6 rounded-md apple-fade-in-up delay-300">
+
+                <div class="project-card card-base p-6 rounded-md apple-fade-in-up delay-400">
                      <header>
                         <div class="flex justify-between items-start">
                             <h3 class="project-title text-xl font-semibold mb-1">
@@ -788,7 +857,8 @@
                         <p class="text-teal text-sm">Issued by: Intellipaat</p>
                     </header>
                 </div>
-                <div class="project-card card-base p-6 rounded-md apple-fade-in-up delay-400">
+
+                <div class="project-card card-base p-6 rounded-md apple-fade-in-up delay-500">
                      <header>
                         <div class="flex justify-between items-start">
                             <h3 class="project-title text-xl font-semibold mb-1">
@@ -804,7 +874,8 @@
                         <p class="text-teal text-sm">Issued by: NASBA (via LinkedIn)</p>
                     </header>
                 </div>
-                <div class="project-card card-base p-6 rounded-md apple-fade-in-up delay-100">
+
+                <div class="project-card card-base p-6 rounded-md apple-fade-in-up delay-600">
                      <header>
                         <div class="flex justify-between items-start">
                             <h3 class="project-title text-xl font-semibold mb-1">
@@ -820,7 +891,8 @@
                         <p class="text-teal text-sm">Issued by: Intellipaat</p>
                     </header>
                 </div>
-                <div class="project-card card-base p-6 rounded-md apple-fade-in-up delay-200">
+
+                <div class="project-card card-base p-6 rounded-md apple-fade-in-up delay-[700ms]">
                      <header>
                         <div class="flex justify-between items-start">
                             <h3 class="project-title text-xl font-semibold mb-1">
@@ -836,6 +908,23 @@
                         <p class="text-teal text-sm">Issued by: Intellipaat</p>
                     </header>
                 </div>
+
+                <div class="project-card card-base p-6 rounded-md apple-fade-in-up delay-[800ms]">
+                     <header>
+                        <div class="flex justify-between items-start">
+                            <h3 class="project-title text-xl font-semibold mb-1">
+                                <a href="https://drive.google.com/file/d/1-zkxGvNXXylrcffyPW71stwv-uphx3HD/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="transition-colors">Machine Learning with Python</a>
+                            </h3>
+                            <div class="project-link text-secondary text-sm flex-shrink-0 ml-4">
+                                <a href="https://drive.google.com/file/d/1-zkxGvNXXylrcffyPW71stwv-uphx3HD/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="flex items-center transition-colors">
+                                   <span class="mr-1 hidden sm:inline">View</span>
+                                   <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                                </a>
+                            </div>
+                        </div>
+                        <p class="text-teal text-sm">Issued by: Coursera</p>
+                    </header>
+                </div>
             </div>
         </section>
 
@@ -846,13 +935,13 @@
                 <p class="max-w-xl mx-auto text-base md:text-lg leading-relaxed mb-10">
                     I'm actively seeking opportunities to apply my skills and contribute to innovative projects. Whether you have a question, a potential collaboration, or just want to connect, I'd love to hear from you.
                 </p>
-                <a href="mailto:t.biju.krithik@gmail.com" class="cta-button text-lg py-4 px-8">
+                <a href="mailto:prithish483@gmail.com" class="cta-button text-lg py-4 px-8">
                     Say Hello
                 </a>
             </div>
 
             <div class="mt-20 flex justify-center space-x-6 apple-fade-in-up delay-200">
-                 <a href="mailto:t.biju.krithik@gmail.com" class="contact-icon-link text-secondary hover:text-teal" aria-label="Email">
+                 <a href="mailto:prithish483@gmail.com" class="contact-icon-link text-secondary hover:text-teal" aria-label="Email">
                     <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
                 </a>
                 <a href="https://wa.me/9944408977" target="_blank" rel="noopener noreferrer" class="contact-icon-link text-secondary hover:text-teal" aria-label="WhatsApp">
@@ -880,6 +969,9 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // Mobile Optimization: Detect touch devices to disable heavy mouse effects
+            const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (window.matchMedia("(pointer: coarse)").matches);
+
             // --- CUSTOM CURSOR LOGIC (UPDATED FOR SMOOTHNESS) ---
             const cursorDot = document.querySelector('.cursor-dot');
             const cursorOutline = document.querySelector('.cursor-outline');
@@ -890,37 +982,44 @@
             let outlineX = 0;
             let outlineY = 0;
 
-            window.addEventListener('mousemove', (e) => {
-                mouseX = e.clientX;
-                mouseY = e.clientY;
-                
-                // Dot follows mouse instantly
-                cursorDot.style.left = `${mouseX}px`;
-                cursorDot.style.top = `${mouseY}px`;
-            });
+            if (!isTouchDevice) {
+                window.addEventListener('mousemove', (e) => {
+                    mouseX = e.clientX;
+                    mouseY = e.clientY;
+                    
+                    // Dot follows mouse instantly
+                    cursorDot.style.left = `${mouseX}px`;
+                    cursorDot.style.top = `${mouseY}px`;
+                });
 
-            // Smooth Lerp Animation for Cursor Outline
-            function animateCursor() {
-                let dist = 0.2; // Optimized for performance (smoother)
-                
-                outlineX += (mouseX - outlineX) * dist;
-                outlineY += (mouseY - outlineY) * dist;
-                
-                cursorOutline.style.left = `${outlineX}px`;
-                cursorOutline.style.top = `${outlineY}px`;
-                
-                requestAnimationFrame(animateCursor);
+                // Smooth Lerp Animation for Cursor Outline
+                function animateCursor() {
+                    let dist = 0.2; // Optimized for performance (smoother)
+                    
+                    outlineX += (mouseX - outlineX) * dist;
+                    outlineY += (mouseY - outlineY) * dist;
+                    
+                    cursorOutline.style.left = `${outlineX}px`;
+                    cursorOutline.style.top = `${outlineY}px`;
+                    
+                    requestAnimationFrame(animateCursor);
+                }
+                animateCursor();
+
+                interactiveElements.forEach((el) => {
+                    el.addEventListener('mouseenter', () => {
+                        cursorOutline.classList.add('hover');
+                    });
+                    el.addEventListener('mouseleave', () => {
+                        cursorOutline.classList.remove('hover');
+                    });
+                });
+            } else {
+                // Ensure custom cursors are completely hidden from DOM flow on mobile
+                if(cursorDot) cursorDot.style.display = 'none';
+                if(cursorOutline) cursorOutline.style.display = 'none';
+                document.body.style.cursor = 'auto';
             }
-            animateCursor();
-
-            interactiveElements.forEach((el) => {
-                el.addEventListener('mouseenter', () => {
-                    cursorOutline.classList.add('hover');
-                });
-                el.addEventListener('mouseleave', () => {
-                    cursorOutline.classList.remove('hover');
-                });
-            });
 
             // --- TYPEWRITER EFFECT (OPTIMIZED START) ---
             const textElement = document.getElementById('typewriter');
@@ -963,28 +1062,31 @@
             // --- 3D TILT EFFECT FOR CARDS ---
             const cards = document.querySelectorAll('.card-base');
 
-            cards.forEach(card => {
-                card.addEventListener('mousemove', (e) => {
-                    const rect = card.getBoundingClientRect();
-                    const x = e.clientX - rect.left;
-                    const y = e.clientY - rect.top;
-                    
-                    // Calculate rotation based on mouse position
-                    // Center is (0,0), range is -1 to 1
-                    const xPct = (x / rect.width) - 0.5;
-                    const yPct = (y / rect.height) - 0.5;
-                    
-                    // Limit rotation to small angles
-                    const xRot = yPct * -10; // Rotate around X axis (up/down tilt)
-                    const yRot = xPct * 10;  // Rotate around Y axis (left/right tilt)
-                    
-                    card.style.transform = `perspective(1000px) rotateX(${xRot}deg) rotateY(${yRot}deg) scale(1.02)`;
-                });
+            // Mobile Optimization: Only enable 3D tilt on devices with a mouse
+            if (!isTouchDevice) {
+                cards.forEach(card => {
+                    card.addEventListener('mousemove', (e) => {
+                        const rect = card.getBoundingClientRect();
+                        const x = e.clientX - rect.left;
+                        const y = e.clientY - rect.top;
+                        
+                        // Calculate rotation based on mouse position
+                        // Center is (0,0), range is -1 to 1
+                        const xPct = (x / rect.width) - 0.5;
+                        const yPct = (y / rect.height) - 0.5;
+                        
+                        // Limit rotation to small angles
+                        const xRot = yPct * -10; // Rotate around X axis (up/down tilt)
+                        const yRot = xPct * 10;  // Rotate around Y axis (left/right tilt)
+                        
+                        card.style.transform = `perspective(1000px) rotateX(${xRot}deg) rotateY(${yRot}deg) scale(1.02)`;
+                    });
 
-                card.addEventListener('mouseleave', () => {
-                    card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
+                    card.addEventListener('mouseleave', () => {
+                        card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
+                    });
                 });
-            });
+            }
 
             // --- SCROLL PROGRESS BAR ---
             const scrollProgress = document.getElementById('scroll-progress');
@@ -1254,7 +1356,8 @@
             window.addEventListener('scroll', changeNav);
             window.addEventListener('load', changeNav);
 
-            const scrollElements = document.querySelectorAll('.apple-fade-in-up');
+            // Updated Observer to also track the new featured certificate animation
+            const scrollElements = document.querySelectorAll('.apple-fade-in-up, .featured-cert-reveal');
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) entry.target.classList.add('visible');
@@ -1264,16 +1367,20 @@
 
             const skillsGrid = document.getElementById('skillsGrid');
             const skillCards = skillsGrid ? skillsGrid.querySelectorAll('.skill-card') : [];
-            skillCards.forEach(card => {
-                card.addEventListener('mouseenter', () => {
-                    if (skillsGrid) skillsGrid.classList.add('has-hovered-card');
-                    card.classList.add('is-hovered');
+            
+            // Mobile Optimization: Disable sticky hover blur effect on touchscreens
+            if (!isTouchDevice) {
+                skillCards.forEach(card => {
+                    card.addEventListener('mouseenter', () => {
+                        if (skillsGrid) skillsGrid.classList.add('has-hovered-card');
+                        card.classList.add('is-hovered');
+                    });
+                    card.addEventListener('mouseleave', () => {
+                        if (skillsGrid) skillsGrid.classList.remove('has-hovered-card');
+                        card.classList.remove('is-hovered');
+                    });
                 });
-                card.addEventListener('mouseleave', () => {
-                    if (skillsGrid) skillsGrid.classList.remove('has-hovered-card');
-                    card.classList.remove('is-hovered');
-                });
-            });
+            }
 
             const currentYearEl = document.getElementById('currentYear');
             if (currentYearEl) currentYearEl.textContent = new Date().getFullYear();
