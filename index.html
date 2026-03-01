@@ -15,7 +15,7 @@
             cursor: none; /* Hide the default cursor */
         }
         
-        /* Mobile Optimization: Disable custom cursor and restore default on touch devices */
+        /* Mobile Optimization for cursors */
         @media (hover: none) and (pointer: coarse) {
             body { cursor: auto !important; }
             .cursor-dot, .cursor-outline { display: none !important; }
@@ -111,6 +111,11 @@
 
         body.no-scroll {
             overflow: hidden;
+        }
+
+        /* Prevent grey tap highlight on mobile for interactive elements */
+        a, button, .card-base, .contact-icon-link, .nav-link {
+            -webkit-tap-highlight-color: transparent;
         }
 
         h1, h2, h3, h4, h5, h6 {
@@ -259,13 +264,14 @@
 
         .apple-fade-in-up {
             opacity: 0;
-            transform: translateY(15px);
-            transition: opacity 0.7s cubic-bezier(0.645, 0.045, 0.355, 1), transform 0.7s cubic-bezier(0.645, 0.045, 0.355, 1);
+            transform: translateY(30px);
+            transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .apple-fade-in-up.visible {
             opacity: 1;
             transform: translateY(0);
         }
+        /* Delays for staggering elements IN */
         .delay-100.visible { transition-delay: 0.1s !important; }
         .delay-200.visible { transition-delay: 0.2s !important; }
         .delay-300.visible { transition-delay: 0.3s !important; }
@@ -276,9 +282,10 @@
         /* FEATURED CERTIFICATE ANIMATION */
         .featured-cert-reveal {
             opacity: 0;
-            transform: scale(0.7) translateY(40px);
-            filter: blur(15px);
-            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: scale(0.9) translateY(40px);
+            filter: blur(10px);
+            border-radius: 24px !important; /* Restored smooth edges */
+            transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), filter 0.7s ease;
         }
         .featured-cert-reveal.visible {
             opacity: 1;
@@ -290,7 +297,7 @@
             opacity: 0;
             transform: translateY(20px) scale(0.95);
             filter: blur(10px);
-            transition: all 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s ease;
         }
         .featured-cert-reveal.visible .cert-part {
             opacity: 1;
@@ -299,15 +306,16 @@
         }
         
         /* Staggered delays for the "assembling" effect */
-        .featured-cert-reveal.visible .cert-part-1 { transition-delay: 0.4s; }
-        .featured-cert-reveal.visible .cert-part-2 { transition-delay: 0.6s; }
-        .featured-cert-reveal.visible .cert-part-3 { transition-delay: 0.75s; }
-        .featured-cert-reveal.visible .cert-part-4 { transition-delay: 0.9s; }
-        .featured-cert-reveal.visible .cert-part-5 { transition-delay: 1.05s; }
+        .featured-cert-reveal.visible .cert-part-1 { transition-delay: 0.3s; }
+        .featured-cert-reveal.visible .cert-part-2 { transition-delay: 0.45s; }
+        .featured-cert-reveal.visible .cert-part-3 { transition-delay: 0.55s; }
+        .featured-cert-reveal.visible .cert-part-4 { transition-delay: 0.65s; }
+        .featured-cert-reveal.visible .cert-part-5 { transition-delay: 0.75s; }
 
         .card-base {
             background-color: var(--bg-secondary);
             border: 1px solid var(--border-color);
+            border-radius: 20px !important; /* Restored smooth edges */
             transition: transform 0.1s ease-out, 
                         box-shadow 0.35s cubic-bezier(0.645, 0.045, 0.355, 1),
                         border-color 0.3s ease-in-out,
@@ -359,6 +367,7 @@
 
         .education-card {
              border-left: 3px solid var(--border-color);
+             border-radius: 20px !important; /* Restored smooth edges */
              transition: transform 0.1s ease-out, 
                           box-shadow 0.3s cubic-bezier(0.645, 0.045, 0.355, 1),
                           border-left-color 0.3s ease,
@@ -380,7 +389,7 @@
             width: fit-content;
         }
         .profile-image {
-            border-radius: 8px;
+            border-radius: 24px; /* Restored smooth edges */
             border: 2px solid var(--text-accent);
             box-shadow: 0 0 20px -5px var(--accent-tint);
             transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
@@ -391,7 +400,7 @@
             position: absolute;
             width: 100%;
             height: 100%;
-            border-radius: 8px;
+            border-radius: 24px; /* Restored smooth edges */
             border: 2px solid var(--text-accent);
             top: 12px;
             left: 12px;
@@ -433,13 +442,14 @@
             line-height: 1;
             text-decoration: none;
             cursor: pointer;
-            transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+            /* Removed transform from base transition so JS can take over for magnetic effect */
+            transition: background-color 0.25s cubic-bezier(0.645, 0.045, 0.355, 1), box-shadow 0.25s ease, color 0.25s ease;
             display: inline-block; 
+            will-change: transform;
         }
         .cta-button:hover {
             background-color: var(--accent-tint);
             outline: none;
-            transform: translateY(-2px); 
             box-shadow: 0 4px 15px -5px var(--accent-tint);
         }
         
@@ -460,7 +470,7 @@
             opacity: 1;
         }
         #logo-wrapper {
-             transition: transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1);
+             transition: transform 0.5s cubic-bezier(0.645, 0.045, 0.355, 1);
         }
         #transition-overlay.is-moving #logo-wrapper {
             transform: translate(-46vw, -45vh) scale(0.12);
@@ -476,12 +486,12 @@
             stroke-linecap: round;
             stroke-linejoin: round;
             fill: none;
-            stroke-dasharray: 1000;
-            stroke-dashoffset: 1000;
-            transition: stroke 0.3s ease-in-out;
+            stroke-dasharray: 200;
+            stroke-dashoffset: 200;
+            /* No transition here so it snaps back to hidden instantly when overlay closes */
         }
         #transition-overlay.is-active #transition-logo path {
-            animation: draw-logo 1.2s ease-in-out forwards;
+            animation: draw-logo 0.8s ease-in-out forwards;
         }
 
         @keyframes draw-logo {
@@ -491,20 +501,20 @@
         }
 
         #theme-toggle-button {
-            background: none;
-            border: none;
-            cursor: pointer;
-            color: var(--text-secondary);
-            padding: 0.5rem;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: color 0.3s ease, background-color 0.3s ease;
+        #mobile-menu-button:active {
+            transform: scale(0.8);
         }
-        #theme-toggle-button:hover {
-            color: var(--text-accent);
-            background-color: var(--accent-tint);
+
+        /* Mobile menu link squish */
+        #mobile-menu .nav-link {
+            transition: background-color 0.2s ease, transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-origin: center;
+            display: block;
+        }
+        #mobile-menu .nav-link:active {
+            transform: scale(0.95);
+            background-color: var(--bg-tertiary);
+            border-radius: 8px;
         }
 
     </style>
@@ -534,7 +544,7 @@
                 <a href="#contact" class="nav-link text-sm font-medium">Contact</a>
                 <div class="flex items-center space-x-4">
                     <!-- UPDATED RESUME LINK BELOW (DESKTOP) -->
-                    <a href="https://drive.google.com/file/d/18YX2FFgxeOojemDrvt7gpuB9uKl6ZPfd/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="cta-button !py-2 !px-4 !text-sm">Resume</a>
+                    <a href="https://drive.google.com/file/d/18YX2FFgxeOojemDrvt7gpuB9uKl6ZPfd/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="cta-button magnetic-btn !py-2 !px-4 !text-sm">Resume</a>
                     
                     <!-- === THEME TOGGLE BUTTON START === -->
                     <button id="theme-toggle-button" aria-label="Toggle theme">
@@ -585,13 +595,11 @@
                     An aspiring software engineer specializing in data science, blending analytical rigor with creative problem-solving to craft impactful digital experiences and extract insights from data.
                 </p>
                 
-                <!-- DESIGN IMPROVEMENT: Wrapped button and social icons in a flex container -->
                 <div class="flex flex-col sm:flex-row items-start sm:items-center gap-6 apple-fade-in-up delay-300">
-                    <a href="#about" id="learn-more-btn" class="cta-button">
+                    <a href="#about" id="learn-more-btn" class="cta-button magnetic-btn">
                         Learn More
                     </a>
                     
-                    <!-- Added Hero Social Icons for quick access with bounce hover effect -->
                     <div class="flex items-center gap-5">
                         <a href="https://github.com/Prithish-22" target="_blank" rel="noopener noreferrer" class="contact-icon-link text-secondary hover:text-teal transition-colors" aria-label="GitHub">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
@@ -606,7 +614,7 @@
                 </div>
             </div>
             <!-- DESIGN IMPROVEMENT: Scroll Down Indicator -->
-            <div class="scroll-down-indicator apple-fade-in-up delay-600">
+            <div class="scroll-down-indicator apple-fade-in-up delay-600" id="scroll-indicator-btn">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
                 </svg>
@@ -776,7 +784,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 
                 <!-- FEATURED BIG CERTIFICATE -->
-                <!-- Removed 'card-base' to stop the tilt effect, added explicit bg/border classes, and changed animation to 'featured-cert-reveal' -->
+                <!-- Retained specific animation but returned to classic flat styling -->
                 <div class="md:col-span-2 project-card featured-cert-reveal bg-[var(--bg-secondary)] border border-[var(--border-color)] p-6 md:p-8 rounded-lg border-l-4 border-[var(--text-accent)] shadow-[0_0_15px_-3px_var(--accent-tint)]">
                     <div class="flex flex-col md:flex-row gap-6 md:gap-10 items-center md:items-stretch">
                         <!-- Certificate Image Thumbnail -->
@@ -935,7 +943,7 @@
                 <p class="max-w-xl mx-auto text-base md:text-lg leading-relaxed mb-10">
                     I'm actively seeking opportunities to apply my skills and contribute to innovative projects. Whether you have a question, a potential collaboration, or just want to connect, I'd love to hear from you.
                 </p>
-                <a href="mailto:prithish483@gmail.com" class="cta-button text-lg py-4 px-8">
+                <a href="mailto:prithish483@gmail.com" class="cta-button magnetic-btn text-lg py-4 px-8">
                     Say Hello
                 </a>
             </div>
@@ -959,20 +967,21 @@
     <!-- Full-screen transition overlay -->
     <div id="transition-overlay">
         <div id="logo-wrapper">
-            <svg id="transition-logo" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
-                <path d="M20 80 V 20 H 45 A 15 15, 0, 1, 1, 45, 50 H 20"/>
-                <path d="M50 80 V 20 H 75 A 15 15, 0, 0, 1, 75, 50 L 50 50 L 80 80"/>
-                <path d="M10 20 H 90 M 50 20 V 80"/>
+            <svg id="transition-logo" viewBox="0 0 160 100" preserveAspectRatio="xMidYMid meet">
+                <!-- P -->
+                <path d="M20 80 V 20 H 40 A 15 15 0 0 1 40 50 H 20"/>
+                <!-- R -->
+                <path d="M60 80 V 20 H 80 A 15 15 0 0 1 80 50 H 60 M 70 50 L 90 80"/>
+                <!-- T -->
+                <path d="M105 20 H 145"/>
+                <path d="M125 20 V 80"/>
             </svg>
         </div>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Mobile Optimization: Detect touch devices to disable heavy mouse effects
-            const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (window.matchMedia("(pointer: coarse)").matches);
-
-            // --- CUSTOM CURSOR LOGIC (UPDATED FOR SMOOTHNESS) ---
+            // --- CUSTOM CURSOR LOGIC ---
             const cursorDot = document.querySelector('.cursor-dot');
             const cursorOutline = document.querySelector('.cursor-outline');
             const interactiveElements = document.querySelectorAll('a, button, .skill-card');
@@ -982,46 +991,39 @@
             let outlineX = 0;
             let outlineY = 0;
 
-            if (!isTouchDevice) {
-                window.addEventListener('mousemove', (e) => {
-                    mouseX = e.clientX;
-                    mouseY = e.clientY;
-                    
-                    // Dot follows mouse instantly
-                    cursorDot.style.left = `${mouseX}px`;
-                    cursorDot.style.top = `${mouseY}px`;
-                });
+            window.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+                
+                // Dot follows mouse instantly
+                cursorDot.style.left = `${mouseX}px`;
+                cursorDot.style.top = `${mouseY}px`;
+            });
 
-                // Smooth Lerp Animation for Cursor Outline
-                function animateCursor() {
-                    let dist = 0.2; // Optimized for performance (smoother)
-                    
-                    outlineX += (mouseX - outlineX) * dist;
-                    outlineY += (mouseY - outlineY) * dist;
-                    
-                    cursorOutline.style.left = `${outlineX}px`;
-                    cursorOutline.style.top = `${outlineY}px`;
-                    
-                    requestAnimationFrame(animateCursor);
-                }
-                animateCursor();
-
-                interactiveElements.forEach((el) => {
-                    el.addEventListener('mouseenter', () => {
-                        cursorOutline.classList.add('hover');
-                    });
-                    el.addEventListener('mouseleave', () => {
-                        cursorOutline.classList.remove('hover');
-                    });
-                });
-            } else {
-                // Ensure custom cursors are completely hidden from DOM flow on mobile
-                if(cursorDot) cursorDot.style.display = 'none';
-                if(cursorOutline) cursorOutline.style.display = 'none';
-                document.body.style.cursor = 'auto';
+            // Smooth Lerp Animation for Cursor Outline
+            function animateCursor() {
+                let dist = 0.2; 
+                
+                outlineX += (mouseX - outlineX) * dist;
+                outlineY += (mouseY - outlineY) * dist;
+                
+                cursorOutline.style.left = `${outlineX}px`;
+                cursorOutline.style.top = `${outlineY}px`;
+                
+                requestAnimationFrame(animateCursor);
             }
+            animateCursor();
 
-            // --- TYPEWRITER EFFECT (OPTIMIZED START) ---
+            interactiveElements.forEach((el) => {
+                el.addEventListener('mouseenter', () => {
+                    cursorOutline.classList.add('hover');
+                });
+                el.addEventListener('mouseleave', () => {
+                    cursorOutline.classList.remove('hover');
+                });
+            });
+
+            // --- TYPEWRITER EFFECT ---
             const textElement = document.getElementById('typewriter');
             const phrases = ['Data Scientist', 'Software Engineer', 'Creative Thinker', 'Problem Solver'];
             let phraseIndex = 0;
@@ -1054,7 +1056,6 @@
                 setTimeout(type, typeSpeed);
             }
             
-            // Optimized start delay: 1000 -> 100ms
             if(textElement) {
                 setTimeout(type, 100);
             }
@@ -1062,31 +1063,25 @@
             // --- 3D TILT EFFECT FOR CARDS ---
             const cards = document.querySelectorAll('.card-base');
 
-            // Mobile Optimization: Only enable 3D tilt on devices with a mouse
-            if (!isTouchDevice) {
-                cards.forEach(card => {
-                    card.addEventListener('mousemove', (e) => {
-                        const rect = card.getBoundingClientRect();
-                        const x = e.clientX - rect.left;
-                        const y = e.clientY - rect.top;
-                        
-                        // Calculate rotation based on mouse position
-                        // Center is (0,0), range is -1 to 1
-                        const xPct = (x / rect.width) - 0.5;
-                        const yPct = (y / rect.height) - 0.5;
-                        
-                        // Limit rotation to small angles
-                        const xRot = yPct * -10; // Rotate around X axis (up/down tilt)
-                        const yRot = xPct * 10;  // Rotate around Y axis (left/right tilt)
-                        
-                        card.style.transform = `perspective(1000px) rotateX(${xRot}deg) rotateY(${yRot}deg) scale(1.02)`;
-                    });
-
-                    card.addEventListener('mouseleave', () => {
-                        card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
-                    });
+            cards.forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    const xPct = (x / rect.width) - 0.5;
+                    const yPct = (y / rect.height) - 0.5;
+                    
+                    const xRot = yPct * -10; 
+                    const yRot = xPct * 10;  
+                    
+                    card.style.transform = `perspective(1000px) rotateX(${xRot}deg) rotateY(${yRot}deg) scale(1.02)`;
                 });
-            }
+
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
+                });
+            });
 
             // --- SCROLL PROGRESS BAR ---
             const scrollProgress = document.getElementById('scroll-progress');
@@ -1098,7 +1093,7 @@
             });
 
 
-            // --- PARTICLE BACKGROUND ANIMATION (OPTIMIZED) ---
+            // --- PARTICLE BACKGROUND ANIMATION ---
             const canvas = document.getElementById('particle-canvas');
             const ctx = canvas.getContext('2d');
             let particlesArray;
@@ -1124,16 +1119,13 @@
                     this.size = size;
                     this.color = color;
                 }
-                // Method to draw individual particle
                 draw() {
                     ctx.beginPath();
                     ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
                     ctx.fillStyle = this.color;
                     ctx.fill();
                 }
-                // Check particle position, check mouse position, move the particle, draw the particle
                 update() {
-                    // Check if particle is still within canvas
                     if (this.x > canvas.width || this.x < 0) {
                         this.directionX = -this.directionX;
                     }
@@ -1141,11 +1133,8 @@
                         this.directionY = -this.directionY;
                     }
 
-                    // Move particle
                     this.x += this.directionX;
                     this.y += this.directionY;
-
-                    // Draw particle
                     this.draw();
                 }
             }
@@ -1153,7 +1142,6 @@
             // Create particle array
             function init() {
                 particlesArray = [];
-                // OPTIMIZATION: Reduced particle density. Divisor changed from 15000 to 25000.
                 let numberOfParticles = (canvas.height * canvas.width) / 25000;
                 for (let i = 0; i < numberOfParticles; i++) {
                     let size = (Math.random() * 2) + 1;
@@ -1175,7 +1163,6 @@
 
                 let lineColor = document.documentElement.getAttribute('data-theme') === 'light' ? 'rgba(0,0,0,0.05)' : 'rgba(255,255,255,0.05)';
                 let particleColor = document.documentElement.getAttribute('data-theme') === 'light' ? 'rgba(0,0,0,0.1)' : 'rgba(255,255,255,0.1)';
-
 
                 for (let i = 0; i < particlesArray.length; i++) {
                     particlesArray[i].color = particleColor;
@@ -1252,7 +1239,6 @@
             themeToggleButton.addEventListener('click', toggleTheme);
             mobileThemeToggleButton.addEventListener('click', toggleTheme);
 
-            // Apply initial theme
             if (userTheme) {
                 applyTheme(userTheme);
             } else {
@@ -1267,15 +1253,17 @@
                 document.body.classList.add('no-scroll');
                 transitionOverlay.classList.add('is-active');
 
+                // Move to corner after drawing
                 setTimeout(() => {
                     transitionOverlay.classList.add('is-moving');
-                }, 1000);
+                }, 500);
 
+                // Scroll to target and fade out
                 setTimeout(() => {
                     if (targetElement) {
                         const navbarHeight = navbar ? navbar.offsetHeight : 0;
                         const topPosition = targetElement.offsetTop - navbarHeight;
-                        window.scrollTo({ top: topPosition, behavior: 'smooth' });
+                        window.scrollTo({ top: topPosition, behavior: 'auto' });
                     }
                     transitionOverlay.style.opacity = '0';
                     setTimeout(() => {
@@ -1284,10 +1272,18 @@
                         document.body.classList.remove('no-scroll');
                         isTransitioning = false;
                     }, 400);
-                }, 1800);
+                }, 1000);
             }
 
-            // --- Event Listeners ---
+            // --- Reset Animation on Scroll to Top ---
+            window.addEventListener('scroll', () => {
+                // If user scrolls back to the very top, allow the PRT overlay animation to run again
+                if (window.scrollY < 10 && firstScrollDone && !isTransitioning) {
+                    firstScrollDone = false;
+                    scrollLocked = false;
+                }
+            });
+
             if (learnMoreBtn) {
                 learnMoreBtn.addEventListener('click', function(e) {
                     e.preventDefault();
@@ -1304,15 +1300,33 @@
                 });
             }
 
+            const scrollIndicatorBtn = document.getElementById('scroll-indicator-btn');
+            if (scrollIndicatorBtn) {
+                scrollIndicatorBtn.addEventListener('click', function(e) {
+                    if (!firstScrollDone) {
+                        firstScrollDone = true;
+                        const targetElement = document.getElementById('about');
+                        triggerTransition(targetElement);
+                    } else {
+                        const targetElement = document.getElementById('about');
+                        const navbarHeight = navbar ? navbar.offsetHeight : 0;
+                        const topPosition = targetElement.offsetTop - navbarHeight;
+                        window.scrollTo({ top: topPosition, behavior: 'smooth' });
+                    }
+                });
+            }
+
+            let scrollLocked = false;
             function handleFirstScroll() {
-                if (window.scrollY > 10 && !firstScrollDone) {
+                if (window.scrollY > 15 && !firstScrollDone && !scrollLocked) {
+                    scrollLocked = true;
                     firstScrollDone = true;
                     const targetElement = document.getElementById('about');
-                    window.scrollTo(0, 0);
+                    window.scrollTo(0, 0); // Snap back to top so overlay is clean
                     triggerTransition(targetElement);
                 }
             }
-            window.addEventListener('scroll', handleFirstScroll, { once: true });
+            window.addEventListener('scroll', handleFirstScroll);
 
             const mobileMenuButton = document.getElementById('mobile-menu-button');
             const mobileMenu = document.getElementById('mobile-menu');
@@ -1328,6 +1342,26 @@
                 link.addEventListener('click', () => {
                     mobileMenu.classList.add('hidden');
                     if (mobileMenuButton) mobileMenuButton.setAttribute('aria-expanded', 'false');
+                });
+            });
+
+            // --- ADDED FEATURE: Magnetic Buttons ---
+            const magneticBtns = document.querySelectorAll('.magnetic-btn');
+            magneticBtns.forEach(btn => {
+                btn.addEventListener('mousemove', (e) => {
+                    const position = btn.getBoundingClientRect();
+                    const x = e.clientX - position.left - position.width / 2;
+                    const y = e.clientY - position.top - position.height / 2;
+                    
+                    // Pull the button towards the mouse cursor
+                    btn.style.transform = `translate(${x * 0.2}px, ${y * 0.3}px)`;
+                    btn.style.transition = 'transform 0.1s ease-out, background-color 0.25s ease';
+                });
+                
+                btn.addEventListener('mouseleave', () => {
+                    // Snap back to original position
+                    btn.style.transform = 'translate(0px, 0px)';
+                    btn.style.transition = 'transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.25s ease';
                 });
             });
 
@@ -1356,31 +1390,32 @@
             window.addEventListener('scroll', changeNav);
             window.addEventListener('load', changeNav);
 
-            // Updated Observer to also track the new featured certificate animation
             const scrollElements = document.querySelectorAll('.apple-fade-in-up, .featured-cert-reveal');
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
-                    if (entry.isIntersecting) entry.target.classList.add('visible');
+                    if (entry.isIntersecting) {
+                        // Element comes into view -> animate in
+                        entry.target.classList.add('visible');
+                    } else {
+                        // Element goes out of view -> remove class so it animates out and is ready to animate in again
+                        entry.target.classList.remove('visible');
+                    }
                 });
             }, { root: null, rootMargin: '0px 0px -50px 0px', threshold: 0.1 });
             scrollElements.forEach(el => observer.observe(el));
 
             const skillsGrid = document.getElementById('skillsGrid');
             const skillCards = skillsGrid ? skillsGrid.querySelectorAll('.skill-card') : [];
-            
-            // Mobile Optimization: Disable sticky hover blur effect on touchscreens
-            if (!isTouchDevice) {
-                skillCards.forEach(card => {
-                    card.addEventListener('mouseenter', () => {
-                        if (skillsGrid) skillsGrid.classList.add('has-hovered-card');
-                        card.classList.add('is-hovered');
-                    });
-                    card.addEventListener('mouseleave', () => {
-                        if (skillsGrid) skillsGrid.classList.remove('has-hovered-card');
-                        card.classList.remove('is-hovered');
-                    });
+            skillCards.forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    if (skillsGrid) skillsGrid.classList.add('has-hovered-card');
+                    card.classList.add('is-hovered');
                 });
-            }
+                card.addEventListener('mouseleave', () => {
+                    if (skillsGrid) skillsGrid.classList.remove('has-hovered-card');
+                    card.classList.remove('is-hovered');
+                });
+            });
 
             const currentYearEl = document.getElementById('currentYear');
             if (currentYearEl) currentYearEl.textContent = new Date().getFullYear();
