@@ -1,827 +1,770 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prithish Raj T · Aspiring Software Engineer</title>
+    <title>Prithish Raj T · Software Engineer & Data Science Specialist</title>
+    <meta name="description" content="Portfolio of Prithish Raj T - Aspiring Software Engineer specializing in Data Science, Machine Learning, and Python Development.">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        dark: {
+                            bg: '#0a0e17',
+                            surface: '#111827',
+                            card: '#161e2e',
+                            border: '#232d3f',
+                            hover: '#1f293d',
+                        },
+                        brand: {
+                            cyan: '#06b6d4',
+                            indigo: '#6366f1',
+                            violet: '#8b5cf6',
+                            emerald: '#10b981',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --paper: #f7f3ed;
-            --surface: #fffdfa;
-            --ink: #1f1b16;
-            --muted: #5e554a;
-            --line: #d9cfc2;
-            --accent: #8b5e34;
-            --accent-soft: #f1e4d4;
-            --max-width: 1120px;
-            --nav-h: 4.5rem;
-        }
-
-        * { box-sizing: border-box; }
-
-        html { scroll-behavior: smooth; }
-
         body {
-            margin: 0;
-            font-family: 'Inter', sans-serif;
-            color: var(--ink);
-            background: var(--paper);
-            line-height: 1.65;
+            background-color: #0a0e17;
+            color: #f3f4f6;
+            font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+            overflow-x: hidden;
         }
 
-        .site-header {
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            border-bottom: 1px solid var(--line);
-            background: color-mix(in srgb, var(--paper) 92%, white);
-            backdrop-filter: blur(10px);
+        .bg-grid-pattern {
+            background-image: radial-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+            background-size: 28px 28px;
         }
 
-        .container {
-            width: min(100% - 2.5rem, var(--max-width));
-            margin-inline: auto;
+        .glow-cyan {
+            box-shadow: 0 0 40px -10px rgba(6, 182, 212, 0.35);
         }
 
-        .nav-wrap {
-            min-height: var(--nav-h);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 1rem;
+        .glow-indigo {
+            box-shadow: 0 0 50px -10px rgba(99, 102, 241, 0.25);
         }
 
-        .brand {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.4rem;
-            font-weight: 700;
-            text-decoration: none;
-            color: var(--ink);
-            letter-spacing: 0.04em;
+        .gradient-text {
+            background: linear-gradient(135deg, #38bdf8 0%, #818cf8 50%, #c084fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 1.2rem;
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: var(--muted);
-            font-size: 0.95rem;
-            font-weight: 500;
-            transition: color 180ms ease;
-        }
-
-        .nav-links a:hover,
-        .nav-links a.active {
-            color: var(--ink);
-        }
-
-        .resume-link {
-            border: 1px solid var(--ink);
-            border-radius: 999px;
-            padding: 0.45rem 0.85rem;
-            color: var(--ink);
-            text-decoration: none;
-            font-size: 0.85rem;
-            font-weight: 600;
-            transition: background-color 180ms ease, color 180ms ease;
-        }
-
-        .resume-link:hover { background: var(--ink); color: #fff; }
-
-        .menu-button {
-            display: none;
-            border: 1px solid var(--line);
-            background: var(--surface);
-            color: var(--ink);
-            border-radius: 0.4rem;
-            padding: 0.45rem;
-        }
-
-        main section {
-            padding-block: 4.6rem;
-            scroll-margin-top: calc(var(--nav-h) + 1rem);
-        }
-
-        .section-heading {
-            display: grid;
-            grid-template-columns: auto 1fr;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-
-        .section-heading .index {
-            color: var(--accent);
-            font-weight: 700;
-            letter-spacing: 0.08em;
-            font-size: 0.76rem;
-            text-transform: uppercase;
-        }
-
-        .section-heading h2 {
-            margin: 0;
-            font-size: clamp(1.5rem, 2.2vw, 2rem);
-            font-family: 'Playfair Display', serif;
-            line-height: 1.2;
-        }
-
-        .section-heading::after {
-            content: "";
-            grid-column: 1 / -1;
-            height: 1px;
-            background: var(--line);
-        }
-
-        .hero {
-            min-height: min(88vh, 52rem);
-            display: grid;
-            grid-template-columns: 1.15fr 0.85fr;
-            align-items: center;
-            gap: clamp(1.8rem, 4vw, 4rem);
+        .gradient-border {
             position: relative;
+            border-radius: 1rem;
+            background: linear-gradient(135deg, rgba(6,182,212,0.3), rgba(99,102,241,0.2), rgba(139,92,246,0.1));
+            padding: 1px;
         }
 
-        .hero-kicker {
-            margin: 0;
-            color: var(--accent);
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            font-size: 0.78rem;
-            font-weight: 700;
+        .glass-header {
+            background: rgba(10, 14, 23, 0.82);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         }
 
-        .hero h1 {
-            margin: 0.5rem 0 1rem;
-            font-size: clamp(2.2rem, 5.5vw, 4.3rem);
-            line-height: 1.05;
-            font-family: 'Playfair Display', serif;
-            text-wrap: balance;
+        .glass-card {
+            background: rgba(22, 30, 46, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .hero .lead {
-            margin: 0;
-            max-width: 58ch;
-            color: var(--muted);
-            font-size: clamp(1rem, 1.5vw, 1.16rem);
+        .glass-card:hover {
+            border-color: rgba(6, 182, 212, 0.4);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px -10px rgba(6, 182, 212, 0.15);
         }
 
-        .hero-meta {
-            margin-top: 1.4rem;
-            color: var(--muted);
-            font-size: 0.95rem;
-        }
-
-        .hero-actions {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.75rem;
-            margin-top: 1.8rem;
-        }
-
-        .btn {
-            border: 1px solid var(--ink);
-            border-radius: 0.45rem;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.92rem;
-            padding: 0.65rem 1.05rem;
-            transition: transform 180ms ease, background-color 180ms ease, color 180ms ease;
-        }
-
-        .btn.primary {
-            background: var(--ink);
-            color: #fff;
-        }
-
-        .btn.primary:hover { transform: translateY(-1px); }
-
-        .btn.ghost {
-            color: var(--ink);
-            background: transparent;
-        }
-
-        .btn.ghost:hover {
-            background: var(--accent-soft);
-            border-color: var(--accent);
-        }
-
-        .hero-photo-wrap {
-            position: relative;
-            justify-self: end;
-            width: min(100%, 26rem);
-            background: linear-gradient(140deg, var(--surface), #f1e7db);
-            border: 1px solid var(--line);
-            padding: clamp(0.8rem, 2vw, 1.2rem);
-        }
-
-        .hero-photo-wrap::before {
-            content: "";
-            position: absolute;
-            right: -0.75rem;
-            bottom: -0.75rem;
-            width: 100%;
-            height: 100%;
-            border: 1px solid var(--accent);
-            z-index: -1;
-        }
-
-        .hero-photo {
-            width: 100%;
-            aspect-ratio: 4 / 5;
-            object-fit: cover;
-            border: 1px solid var(--line);
-            background: #e7ddd0;
-            display: block;
-        }
-
-        .panel {
-            border: 1px solid var(--line);
-            background: var(--surface);
-            padding: clamp(1rem, 2vw, 1.45rem);
-        }
-
-        .about-layout {
-            display: grid;
-            grid-template-columns: 1.1fr 0.9fr;
-            gap: 1.25rem;
-            align-items: start;
-        }
-
-        .about-layout p { margin-top: 0; color: var(--muted); }
-
-        .about-points {
-            margin: 0;
-            padding: 0;
-            list-style: none;
-            display: grid;
-            gap: 0.75rem;
-            color: var(--muted);
-            font-size: 0.95rem;
-        }
-
-        .about-points li {
-            border-top: 1px solid var(--line);
-            padding-top: 0.75rem;
-        }
-
-        .skills-layout {
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 0.8rem;
-        }
-
-        .skill-item {
-            border: 1px solid var(--line);
-            background: var(--surface);
-            padding: 1rem;
-        }
-
-        .skill-item h3 { margin: 0 0 0.3rem; font-size: 1rem; }
-        .skill-item p { margin: 0; color: var(--muted); font-size: 0.9rem; }
-
-        .project-case {
-            border: 1px solid var(--line);
-            background: var(--surface);
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 1.2rem;
-            padding: clamp(1.1rem, 2vw, 1.5rem);
-        }
-
-        .project-case h3 {
-            margin: 0;
-            font-size: clamp(1.2rem, 2vw, 1.6rem);
-            font-family: 'Playfair Display', serif;
-        }
-
-        .project-case h3 a {
-            color: var(--ink);
-            text-decoration: none;
-            border-bottom: 1px solid transparent;
-        }
-
-        .project-case h3 a:hover { border-color: var(--accent); }
-
-        .project-summary {
-            margin: 0.65rem 0 0;
-            color: var(--muted);
-        }
-
-        .project-facts {
-            display: grid;
-            gap: 0.8rem;
-            margin: 1rem 0 0;
-        }
-
-        .fact {
-            border-left: 2px solid var(--accent);
-            padding-left: 0.65rem;
-        }
-
-        .fact dt {
-            margin: 0;
-            font-size: 0.72rem;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            color: var(--accent);
-            font-weight: 700;
-        }
-
-        .fact dd {
-            margin: 0.15rem 0 0;
-            color: var(--muted);
-            font-size: 0.92rem;
-        }
-
-        .project-tech {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.45rem;
-            margin-top: 1.1rem;
-        }
-
-        .project-tech span {
-            border: 1px solid var(--line);
-            background: #f8f1e8;
-            color: #564738;
-            font-size: 0.78rem;
-            padding: 0.25rem 0.55rem;
-        }
-
-        .timeline {
-            display: grid;
-            gap: 1rem;
-            position: relative;
-        }
-
-        .timeline article {
-            border-left: 3px solid var(--accent-soft);
-            padding: 0.95rem 1rem;
-            background: var(--surface);
-            border-top: 1px solid var(--line);
-            border-right: 1px solid var(--line);
-            border-bottom: 1px solid var(--line);
-        }
-
-        .timeline h3 { margin: 0; font-size: 1.08rem; }
-        .timeline p { margin: 0.45rem 0 0; color: var(--muted); }
-
-        .status {
-            display: inline-block;
-            margin-top: 0.55rem;
-            font-size: 0.72rem;
-            font-weight: 700;
-            letter-spacing: 0.07em;
-            text-transform: uppercase;
-            color: var(--accent);
-            background: var(--accent-soft);
-            padding: 0.2rem 0.45rem;
-        }
-
-        .cert-grid {
-            display: grid;
-            grid-template-columns: 1.3fr 1fr;
-            gap: 1rem;
-            align-items: start;
-        }
-
-        .featured-cert {
-            border: 1px solid var(--line);
-            background: var(--surface);
-            padding: 1rem;
-        }
-
-        .featured-cert img {
-            width: 100%;
-            border: 1px solid var(--line);
-            display: block;
-        }
-
-        .featured-cert h3 {
-            margin: 0.9rem 0 0.35rem;
-            font-size: 1.16rem;
-            line-height: 1.3;
-        }
-
-        .featured-cert h3 a,
-        .cert-list a,
-        .contact-list a,
-        .social-list a,
-        .timeline a {
-            color: var(--ink);
-            text-decoration: none;
-            border-bottom: 1px solid transparent;
-        }
-
-        .featured-cert h3 a:hover,
-        .cert-list a:hover,
-        .contact-list a:hover,
-        .social-list a:hover,
-        .timeline a:hover {
-            border-color: var(--accent);
-            color: var(--accent);
-        }
-
-        .featured-cert p { margin: 0; color: var(--muted); }
-
-        .cert-list {
-            margin: 0;
-            padding: 0;
-            list-style: none;
-            border: 1px solid var(--line);
-            background: var(--surface);
-        }
-
-        .cert-list li {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            gap: 1rem;
-            padding: 0.8rem 0.9rem;
-            border-bottom: 1px solid var(--line);
-        }
-
-        .cert-list li:last-child { border-bottom: 0; }
-
-        .cert-list span {
-            font-size: 0.78rem;
-            color: var(--muted);
-            white-space: nowrap;
-        }
-
-        .contact-grid {
-            display: grid;
-            grid-template-columns: 1.15fr 0.85fr;
-            gap: 1rem;
-        }
-
-        .contact-grid p { margin-top: 0; color: var(--muted); }
-
-        .contact-list,
-        .social-list {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            display: grid;
-            gap: 0.6rem;
-        }
-
-        .contact-list li,
-        .social-list li {
-            border-top: 1px solid var(--line);
-            padding-top: 0.55rem;
-            color: var(--muted);
-        }
-
-        .reveal {
+        .reveal-node {
             opacity: 0;
-            transform: translateY(14px);
-            transition: opacity 300ms ease, transform 300ms ease;
+            transform: translateY(20px);
+            transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .reveal.in-view {
+        .reveal-node.in-view {
             opacity: 1;
             transform: translateY(0);
         }
 
-        a:focus-visible,
-        button:focus-visible {
-            outline: 2px solid var(--accent);
-            outline-offset: 2px;
-        }
-
-        footer {
-            border-top: 1px solid var(--line);
-            padding: 1.4rem 0 2rem;
-            color: var(--muted);
-            font-size: 0.88rem;
-        }
-
-        @media (max-width: 980px) {
-            .hero,
-            .about-layout,
-            .project-case,
-            .cert-grid,
-            .contact-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .hero-photo-wrap { justify-self: start; max-width: 19rem; }
-            .skills-layout { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-        }
-
-        @media (max-width: 760px) {
-            :root { --nav-h: 4rem; }
-            .menu-button { display: inline-flex; }
-
-            .nav-links {
-                position: absolute;
-                top: calc(var(--nav-h) + 0.3rem);
-                right: 1.25rem;
-                border: 1px solid var(--line);
-                background: var(--surface);
-                padding: 0.8rem;
-                min-width: 13.2rem;
-                display: none;
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 0.55rem;
-                box-shadow: 0 8px 30px rgba(45, 34, 20, 0.09);
-            }
-
-            .nav-links.open { display: flex; }
-            .resume-link { width: 100%; text-align: center; }
-            .skills-layout { grid-template-columns: 1fr; }
-            main section { padding-block: 3.8rem; }
-            .container { width: min(100% - 1.4rem, var(--max-width)); }
-        }
-
         @media (prefers-reduced-motion: reduce) {
-            html { scroll-behavior: auto; }
-            *, *::before, *::after {
-                animation: none !important;
-                transition-duration: 0.01ms !important;
-                transition-delay: 0ms !important;
-            }
-            .reveal { opacity: 1; transform: none; }
+            .reveal-node { opacity: 1; transform: none; transition: none; }
+            .glass-card:hover { transform: none; }
         }
     </style>
 </head>
-<body>
-    <header class="site-header">
-        <div class="container nav-wrap">
-            <a class="brand" href="#home">Prithish Raj T</a>
-            <button id="menuButton" class="menu-button" aria-expanded="false" aria-controls="siteNav" aria-label="Toggle navigation menu">
-                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                    <path d="M3 6h18M3 12h18M3 18h18"></path>
-                </svg>
-            </button>
-            <nav aria-label="Primary">
-                <ul id="siteNav" class="nav-links">
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#skills">Skills</a></li>
-                    <li><a href="#projects">Projects</a></li>
-                    <li><a href="#education">Education</a></li>
-                    <li><a href="#certifications">Certifications</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                    <li>
-                        <a class="resume-link" href="https://drive.google.com/file/d/18YX2FFgxeOojemDrvt7gpuB9uKl6ZPfd/view?usp=drive_link" target="_blank" rel="noopener noreferrer">Resume</a>
-                    </li>
-                </ul>
-            </nav>
+<body class="bg-grid-pattern min-h-screen text-slate-200 antialiased selection:bg-cyan-500 selection:text-black">
+
+    <!-- Ambient Glow Backgrounds -->
+    <div class="fixed top-0 left-1/4 -z-10 h-96 w-96 -translate-x-1/2 rounded-full bg-cyan-500/10 blur-[120px] pointer-events-none"></div>
+    <div class="fixed top-1/3 right-10 -z-10 h-96 w-96 rounded-full bg-indigo-500/10 blur-[140px] pointer-events-none"></div>
+    <div class="fixed bottom-10 left-1/3 -z-10 h-80 w-80 rounded-full bg-violet-500/10 blur-[130px] pointer-events-none"></div>
+
+    <!-- Header / Navbar -->
+    <header class="glass-header sticky top-0 z-50 transition-all duration-300">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Brand Brand Logo -->
+                <a href="#home" class="group flex items-center gap-3 text-lg font-bold tracking-tight text-white">
+                    <span class="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-tr from-cyan-500 to-indigo-600 font-extrabold text-black shadow-lg shadow-cyan-500/20 group-hover:scale-105 transition-transform">P</span>
+                    <span class="font-bold tracking-wide">Prithish Raj <span class="text-cyan-400">T</span></span>
+                </a>
+
+                <!-- Desktop Nav -->
+                <nav class="hidden md:flex items-center gap-1 bg-slate-900/60 p-1.5 rounded-full border border-slate-800/80">
+                    <a href="#about" class="nav-link px-4 py-2 rounded-full text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800/60 transition-colors">About</a>
+                    <a href="#skills" class="nav-link px-4 py-2 rounded-full text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800/60 transition-colors">Skills</a>
+                    <a href="#projects" class="nav-link px-4 py-2 rounded-full text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800/60 transition-colors">Projects</a>
+                    <a href="#education" class="nav-link px-4 py-2 rounded-full text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800/60 transition-colors">Education</a>
+                    <a href="#certifications" class="nav-link px-4 py-2 rounded-full text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800/60 transition-colors">Certifications</a>
+                    <a href="#contact" class="nav-link px-4 py-2 rounded-full text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800/60 transition-colors">Contact</a>
+                </nav>
+
+                <!-- CTA Button -->
+                <div class="hidden md:flex items-center gap-3">
+                    <a href="https://drive.google.com/file/d/18YX2FFgxeOojemDrvt7gpuB9uKl6ZPfd/view?usp=drive_link" target="_blank" rel="noopener noreferrer"
+                       class="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-xs font-semibold rounded-full group bg-gradient-to-br from-cyan-500 to-indigo-600 group-hover:from-cyan-500 group-hover:to-indigo-500 hover:text-white text-white shadow-md shadow-cyan-500/10">
+                        <span class="relative px-4 py-2 transition-all ease-in duration-75 bg-slate-950 rounded-full group-hover:bg-opacity-0 flex items-center gap-2">
+                            <span>Resume</span>
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                        </span>
+                    </a>
+                </div>
+
+                <!-- Mobile menu button -->
+                <button id="menuButton" class="md:hidden inline-flex items-center justify-center p-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800/80 border border-slate-800" aria-expanded="false" aria-controls="mobileNav" aria-label="Toggle Menu">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path id="menuIcon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile navigation drawer -->
+        <div id="mobileNav" class="hidden md:hidden border-b border-slate-800 bg-slate-950/95 backdrop-blur-xl px-4 pt-2 pb-6 space-y-2">
+            <a href="#about" class="mobile-link block px-4 py-2.5 rounded-lg text-base font-medium text-slate-300 hover:text-white hover:bg-slate-900">About</a>
+            <a href="#skills" class="mobile-link block px-4 py-2.5 rounded-lg text-base font-medium text-slate-300 hover:text-white hover:bg-slate-900">Skills</a>
+            <a href="#projects" class="mobile-link block px-4 py-2.5 rounded-lg text-base font-medium text-slate-300 hover:text-white hover:bg-slate-900">Projects</a>
+            <a href="#education" class="mobile-link block px-4 py-2.5 rounded-lg text-base font-medium text-slate-300 hover:text-white hover:bg-slate-900">Education</a>
+            <a href="#certifications" class="mobile-link block px-4 py-2.5 rounded-lg text-base font-medium text-slate-300 hover:text-white hover:bg-slate-900">Certifications</a>
+            <a href="#contact" class="mobile-link block px-4 py-2.5 rounded-lg text-base font-medium text-slate-300 hover:text-white hover:bg-slate-900">Contact</a>
+            <div class="pt-2">
+                <a href="https://drive.google.com/file/d/18YX2FFgxeOojemDrvt7gpuB9uKl6ZPfd/view?usp=drive_link" target="_blank" rel="noopener noreferrer"
+                   class="w-full flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-indigo-600 text-white font-semibold text-sm">
+                    View Resume
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                </a>
+            </div>
         </div>
     </header>
 
-    <main id="home" class="container" tabindex="-1">
-        <section class="hero">
-            <div class="reveal">
-                <p class="hero-kicker">Aspiring Software Engineer · Data Science Track</p>
-                <h1>Hi, I’m Prithish Raj T.</h1>
-                <p class="lead">I build practical software with a strong data foundation. I’m currently looking for opportunities where I can contribute to software engineering and data-focused projects while continuing to grow through real product work.</p>
-                <p class="hero-meta">Based in Tamil Nadu · Open to internships, entry-level roles, and collaborations.</p>
-                <div class="hero-actions">
-                    <a class="btn primary" href="#projects">View Project</a>
-                    <a class="btn ghost" href="mailto:prithish483@gmail.com">Email Me</a>
-                    <a class="btn ghost" href="https://github.com/Prithish-22" target="_blank" rel="noopener noreferrer">GitHub</a>
-                    <a class="btn ghost" href="https://www.linkedin.com/in/prithish-raj-9bb884349" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-                </div>
-            </div>
-            <figure class="hero-photo-wrap reveal">
-                <img
-                    src="https://i.postimg.cc/BQJ2q4nF/saved.jpg"
-                    alt="Portrait of Prithish Raj T"
-                    class="hero-photo"
-                    loading="eager"
-                    fetchpriority="high"
-                    onerror="this.onerror=null; this.src='https://placehold.co/640x800/e8dfd4/433225?text=Prithish+Raj+T';"
-                >
-            </figure>
-        </section>
+    <main id="home" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-20 space-y-28">
 
-        <section id="about" class="reveal">
-            <div class="section-heading">
-                <span class="index">01</span>
-                <h2>About</h2>
-            </div>
-            <div class="about-layout">
-                <div class="panel">
-                    <p>Hello! I'm Prithish, an aspiring software engineer driven by the interplay of data, design, and problem-solving. I'm currently pursuing a Bachelor of Arts in English while also building technical depth through a Professional Certification in Software Engineering with a Data Science specialization.</p>
-                    <p>This combination gives me two strengths: analytical and communication skills from literary studies, plus practical capabilities in Python, SQL, machine learning, and algorithmic thinking.</p>
-                    <p>My goal is straightforward: turn complex data into clear narratives and build software that is useful, reliable, and thoughtfully designed.</p>
-                </div>
-                <aside class="panel" aria-label="Current focus">
-                    <ul class="about-points">
-                        <li><strong>Current academic path:</strong> B.A. English (3rd Year), Voorhees College</li>
-                        <li><strong>Technical track:</strong> Software Engineering + Data Science specialization (Intellipaat)</li>
-                        <li><strong>Core tools:</strong> Python, SQL, machine learning workflows, and data analysis notebooks</li>
-                        <li><strong>What I’m seeking:</strong> opportunities to apply these skills in real projects and collaborative teams</li>
-                    </ul>
-                </aside>
-            </div>
-        </section>
-
-        <section id="skills" class="reveal">
-            <div class="section-heading">
-                <span class="index">02</span>
-                <h2>Skills & Tools</h2>
-            </div>
-            <div class="skills-layout">
-                <article class="skill-item"><h3>Python</h3><p>For scripting, data analysis, backend-oriented problem solving, and machine learning workflows.</p></article>
-                <article class="skill-item"><h3>SQL</h3><p>For querying and structuring relational data clearly and efficiently.</p></article>
-                <article class="skill-item"><h3>Data Science</h3><p>For extracting insights from datasets through analysis and modeling.</p></article>
-                <article class="skill-item"><h3>Machine Learning</h3><p>For building predictive systems and understanding algorithm behavior in practice.</p></article>
-                <article class="skill-item"><h3>Visual Studio Code</h3><p>Primary editor for day-to-day coding and project development.</p></article>
-                <article class="skill-item"><h3>Jupyter Notebooks</h3><p>For exploratory analysis, experiments, and iterative model prototyping.</p></article>
-            </div>
-        </section>
-
-        <section id="projects" class="reveal">
-            <div class="section-heading">
-                <span class="index">03</span>
-                <h2>Project Case Study</h2>
-            </div>
-            <article class="project-case">
-                <div>
-                    <h3><a href="https://github.com/Prithish-22/Netflix-Project" target="_blank" rel="noopener noreferrer">Netflix Recommendation Project</a></h3>
-                    <p class="project-summary">A recommendation engine created to predict movie ratings and suggest content in a way similar to Netflix-style recommendation systems.</p>
-                    <dl class="project-facts">
-                        <div class="fact">
-                            <dt>Role</dt>
-                            <dd>Built and experimented with collaborative filtering methods for recommendation quality.</dd>
-                        </div>
-                        <div class="fact">
-                            <dt>Technology</dt>
-                            <dd>Python, Pandas, NumPy, Scikit-learn, and matrix factorization with SVD.</dd>
-                        </div>
-                        <div class="fact">
-                            <dt>Outcome</dt>
-                            <dd>Generated personalized movie suggestions by learning latent user and item features from ratings data.</dd>
-                        </div>
-                    </dl>
-                </div>
-                <aside class="panel" aria-label="Project stack">
-                    <strong>Stack</strong>
-                    <div class="project-tech" aria-label="Project technologies">
-                        <span>Python</span><span>Pandas</span><span>NumPy</span><span>Scikit-learn</span><span>SVD</span>
+        <!-- HERO SECTION -->
+        <section class="min-h-[80vh] flex items-center pt-6 pb-12">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center w-full">
+                <div class="lg:col-span-7 space-y-6 reveal-node">
+                    <!-- Status Badge -->
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold tracking-wide">
+                        <span class="relative flex h-2 w-2">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                        </span>
+                        Open for Software & Data Roles
                     </div>
-                    <p style="margin-top:0.9rem; color: var(--muted); font-size:0.93rem;">Repository: <a href="https://github.com/Prithish-22/Netflix-Project" target="_blank" rel="noopener noreferrer">github.com/Prithish-22/Netflix-Project</a></p>
-                </aside>
-            </article>
+
+                    <!-- Main Heading -->
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight">
+                        Building software with a <span class="gradient-text">data-driven</span> edge.
+                    </h1>
+
+                    <!-- Kicker & Subtitle -->
+                    <p class="text-lg text-slate-300 max-w-2xl leading-relaxed font-normal">
+                        Hi, I’m <strong class="text-white font-semibold">Prithish Raj T</strong>. I bridges software engineering principles with data science and machine learning to build intelligent, practical web applications.
+                    </p>
+
+                    <!-- Meta details -->
+                    <div class="flex items-center gap-4 text-xs font-medium text-slate-400 pt-1">
+                        <span class="flex items-center gap-1.5">
+                            <svg class="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                            Tamil Nadu, India
+                        </span>
+                        <span>•</span>
+                        <span>B.A. English & SE (Data Science)</span>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="flex flex-wrap items-center gap-4 pt-4">
+                        <a href="#projects" class="px-6 py-3.5 rounded-xl bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-black font-bold text-sm shadow-lg shadow-cyan-500/20 transition-all hover:scale-[1.02] flex items-center gap-2">
+                            Explore Projects
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                        </a>
+                        <a href="mailto:prithish483@gmail.com" class="px-6 py-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700/80 font-semibold text-sm transition-all hover:scale-[1.02]">
+                            Get in Touch
+                        </a>
+                        <div class="flex items-center gap-2 pl-2">
+                            <a href="https://github.com/Prithish-22" target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile" class="p-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 transition-colors">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+                            </a>
+                            <a href="https://www.linkedin.com/in/prithish-raj-9bb884349" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile" class="p-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 transition-colors">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hero Photo Frame -->
+                <div class="lg:col-span-5 flex justify-center lg:justify-end reveal-node">
+                    <div class="relative w-full max-w-sm">
+                        <!-- Glow behind frame -->
+                        <div class="absolute -inset-1 rounded-2xl bg-gradient-to-r from-cyan-500 to-indigo-600 opacity-40 blur-xl"></div>
+                        <div class="relative rounded-2xl p-2 bg-slate-900/90 border border-slate-800 overflow-hidden shadow-2xl">
+                            <img src="https://i.postimg.cc/BQJ2q4nF/saved.jpg"
+                                 alt="Prithish Raj T"
+                                 class="w-full h-[420px] object-cover rounded-xl filter contrast-[1.02]"
+                                 loading="eager"
+                                 onerror="this.onerror=null; this.src='https://placehold.co/600x800/161e2e/ffffff?text=Prithish+Raj+T';">
+                            <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-slate-950 via-slate-950/70 to-transparent p-5 pt-12">
+                                <p class="text-white font-bold text-base">Prithish Raj T</p>
+                                <p class="text-cyan-400 text-xs font-semibold">Software Engineering & Data Science</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
 
-        <section id="education" class="reveal">
-            <div class="section-heading">
-                <span class="index">04</span>
-                <h2>Education</h2>
+        <!-- ABOUT SECTION -->
+        <section id="about" class="space-y-8 scroll-mt-28 reveal-node">
+            <div class="flex items-center gap-3">
+                <span class="text-xs font-bold tracking-widest text-cyan-400 uppercase">01 //</span>
+                <h2 class="text-2xl sm:text-3xl font-bold text-white">About Me</h2>
+                <div class="h-px bg-slate-800 flex-1 ml-2"></div>
             </div>
-            <div class="timeline">
-                <article>
-                    <h3>B.A. English – 3rd Year</h3>
-                    <p><strong>Voorhees College</strong></p>
-                    <p>Currently deepening my understanding of literature, critical theory, and communication. This humanities foundation sharpens how I analyze problems and explain solutions.</p>
-                </article>
-                <article>
-                    <h3>Professional Certification – Software Engineering</h3>
-                    <p><strong>Specialization in Data Science | Intellipaat</strong></p>
-                    <span class="status">Completed</span>
-                    <p>An intensive program focused on practical software development, data analysis, machine learning, and algorithmic problem-solving.</p>
-                </article>
-                <article>
-                    <h3><a href="https://intellipaat.com/data-science-ai-genius-pro/" target="_blank" rel="noopener noreferrer">Professional Program in Applied AI &amp; Data Science</a></h3>
-                    <p><strong>Intellipaat &amp; iHUB IIT Roorkee</strong></p>
-                    <span class="status">Ongoing</span>
-                    <p>Currently enrolled in real-world project-based training focused on applied AI and data science techniques.</p>
-                </article>
+
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+                <!-- Main Narrative -->
+                <div class="md:col-span-7 glass-card p-6 sm:p-8 rounded-2xl space-y-4">
+                    <h3 class="text-xl font-bold text-white flex items-center gap-2">
+                        <span>Analytical Thinker meets Software Builder</span>
+                    </h3>
+                    <p class="text-slate-300 leading-relaxed text-sm sm:text-base">
+                        I combine the communication depth and critical reasoning of humanities (currently pursuing B.A. English 3rd Year) with practical technical rigor in Software Engineering and Data Science.
+                    </p>
+                    <p class="text-slate-300 leading-relaxed text-sm sm:text-base">
+                        My focus lies in understanding data distributions, engineering feature representations, and building robust algorithmic software. I enjoy taking data problems from raw exploratory analysis in Jupyter Notebooks to clean Python scripts and scalable relational schemas.
+                    </p>
+                </div>
+
+                <!-- Fast Facts Sidebar -->
+                <div class="md:col-span-5 glass-card p-6 sm:p-8 rounded-2xl flex flex-col justify-between space-y-4">
+                    <h3 class="text-lg font-bold text-white border-b border-slate-800 pb-3">Quick Highlights</h3>
+                    <ul class="space-y-3.5 text-sm">
+                        <li class="flex items-start gap-3 text-slate-300">
+                            <svg class="w-5 h-5 text-cyan-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0112 20.055a11.952 11.952 0 01-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/></svg>
+                            <div>
+                                <span class="text-white font-semibold block">Education</span>
+                                <span class="text-slate-400 text-xs">B.A. English (Voorhees College) & SE Specialization</span>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-3 text-slate-300">
+                            <svg class="w-5 h-5 text-indigo-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            <div>
+                                <span class="text-white font-semibold block">Certified by iHUB IIT Roorkee</span>
+                                <span class="text-slate-400 text-xs">Professional Certification in SE & Data Science</span>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-3 text-slate-300">
+                            <svg class="w-5 h-5 text-violet-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+                            <div>
+                                <span class="text-white font-semibold block">Core Toolset</span>
+                                <span class="text-slate-400 text-xs">Python, SQL, ML Models, Pandas, Scikit-Learn</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </section>
 
-        <section id="certifications" class="reveal">
-            <div class="section-heading">
-                <span class="index">05</span>
-                <h2>Certifications</h2>
+        <!-- SKILLS SECTION -->
+        <section id="skills" class="space-y-8 scroll-mt-28 reveal-node">
+            <div class="flex items-center gap-3">
+                <span class="text-xs font-bold tracking-widest text-cyan-400 uppercase">02 //</span>
+                <h2 class="text-2xl sm:text-3xl font-bold text-white">Technical Skills</h2>
+                <div class="h-px bg-slate-800 flex-1 ml-2"></div>
             </div>
-            <div class="cert-grid">
-                <article class="featured-cert">
-                    <a href="https://tih.iitr.ac.in/certificate/intellipaat/IPTIH25121787.jpg" target="_blank" rel="noopener noreferrer">
-                        <img src="https://tih.iitr.ac.in/certificate/intellipaat/IPTIH25121787.jpg" alt="Professional Certification in Software Engineering and Data Science certificate preview">
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                <!-- Skill 1 -->
+                <div class="glass-card p-5 rounded-xl space-y-3">
+                    <div class="flex items-center justify-between">
+                        <div class="p-2.5 rounded-lg bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2zm-1 5v4H7v2h4v4h2v-4h4v-2h-4V7h-2z"/></svg>
+                        </div>
+                        <span class="text-[10px] font-bold tracking-wider px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-slate-700">CORE</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-white">Python Development</h3>
+                    <p class="text-slate-400 text-xs leading-relaxed">Scripting, algorithm design, modular backend structures, and data handling.</p>
+                </div>
+
+                <!-- Skill 2 -->
+                <div class="glass-card p-5 rounded-xl space-y-3">
+                    <div class="flex items-center justify-between">
+                        <div class="p-2.5 rounded-lg bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"/></svg>
+                        </div>
+                        <span class="text-[10px] font-bold tracking-wider px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-slate-700">DATABASE</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-white">SQL & Relational DB</h3>
+                    <p class="text-slate-400 text-xs leading-relaxed">Complex queries, table joins, data aggregations, and MS SQL Server management.</p>
+                </div>
+
+                <!-- Skill 3 -->
+                <div class="glass-card p-5 rounded-xl space-y-3">
+                    <div class="flex items-center justify-between">
+                        <div class="p-2.5 rounded-lg bg-violet-500/10 text-violet-400 border border-violet-500/20">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 012 2h2a2 2 0 012-2z"/></svg>
+                        </div>
+                        <span class="text-[10px] font-bold tracking-wider px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-slate-700">ANALYTICS</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-white">Data Science & Analysis</h3>
+                    <p class="text-slate-400 text-xs leading-relaxed">Exploratory data analysis, Pandas, NumPy, statistical validation, and cleaning.</p>
+                </div>
+
+                <!-- Skill 4 -->
+                <div class="glass-card p-5 rounded-xl space-y-3">
+                    <div class="flex items-center justify-between">
+                        <div class="p-2.5 rounded-lg bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                        </div>
+                        <span class="text-[10px] font-bold tracking-wider px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-slate-700">AI / ML</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-white">Machine Learning</h3>
+                    <p class="text-slate-400 text-xs leading-relaxed">Predictive modeling, collaborative filtering, Scikit-Learn algorithms, and matrix SVD.</p>
+                </div>
+
+                <!-- Skill 5 -->
+                <div class="glass-card p-5 rounded-xl space-y-3">
+                    <div class="flex items-center justify-between">
+                        <div class="p-2.5 rounded-lg bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                        </div>
+                        <span class="text-[10px] font-bold tracking-wider px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-slate-700">TOOLS</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-white">Jupyter & Prototyping</h3>
+                    <p class="text-slate-400 text-xs leading-relaxed">Interactive modeling notebooks, data visualizations, and experimental pipelines.</p>
+                </div>
+
+                <!-- Skill 6 -->
+                <div class="glass-card p-5 rounded-xl space-y-3">
+                    <div class="flex items-center justify-between">
+                        <div class="p-2.5 rounded-lg bg-violet-500/10 text-violet-400 border border-violet-500/20">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                        </div>
+                        <span class="text-[10px] font-bold tracking-wider px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-slate-700">BI / REPORTING</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-white">Power BI & Excel</h3>
+                    <p class="text-slate-400 text-xs leading-relaxed">Dashboard design, business metric visualization, and reporting analytics.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROJECTS SECTION -->
+        <section id="projects" class="space-y-8 scroll-mt-28 reveal-node">
+            <div class="flex items-center gap-3">
+                <span class="text-xs font-bold tracking-widest text-cyan-400 uppercase">03 //</span>
+                <h2 class="text-2xl sm:text-3xl font-bold text-white">Featured Project Case Study</h2>
+                <div class="h-px bg-slate-800 flex-1 ml-2"></div>
+            </div>
+
+            <!-- Featured Case Study Card -->
+            <div class="glass-card p-6 sm:p-8 rounded-2xl relative overflow-hidden group">
+                <div class="absolute top-0 right-0 w-64 h-64 bg-cyan-500/5 rounded-full blur-3xl group-hover:bg-cyan-500/10 transition-all pointer-events-none"></div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                    <div class="lg:col-span-8 space-y-5">
+                        <div class="flex flex-wrap items-center gap-2">
+                            <span class="px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs font-bold uppercase tracking-wider">Machine Learning</span>
+                            <span class="px-3 py-1 rounded-full bg-slate-800 text-slate-300 text-xs font-medium">Recommendation Engine</span>
+                        </div>
+
+                        <h3 class="text-2xl sm:text-3xl font-extrabold text-white group-hover:text-cyan-300 transition-colors">
+                            <a href="https://github.com/Prithish-22/Netflix-Project" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2">
+                                Netflix Movie Recommendation Engine
+                                <svg class="w-5 h-5 text-slate-400 group-hover:text-cyan-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                            </a>
+                        </h3>
+
+                        <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+                            A predictive recommendation system modeled on collaborative filtering algorithms. Designed to predict personalized movie ratings and output accurate top-N media recommendations by extracting latent user-item feature matrices.
+                        </p>
+
+                        <!-- Highlights grid -->
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+                            <div class="border-l-2 border-cyan-500 pl-3 space-y-1">
+                                <span class="text-xs text-slate-400 uppercase font-bold tracking-wider block">Role</span>
+                                <span class="text-slate-200 text-xs font-medium">Collaborative Filtering Implementation</span>
+                            </div>
+                            <div class="border-l-2 border-indigo-500 pl-3 space-y-1">
+                                <span class="text-xs text-slate-400 uppercase font-bold tracking-wider block">Methodology</span>
+                                <span class="text-slate-200 text-xs font-medium">Matrix Factorization & SVD Algorithm</span>
+                            </div>
+                            <div class="border-l-2 border-violet-500 pl-3 space-y-1">
+                                <span class="text-xs text-slate-400 uppercase font-bold tracking-wider block">Impact</span>
+                                <span class="text-slate-200 text-xs font-medium">Personalized Content Scoring</span>
+                            </div>
+                        </div>
+
+                        <!-- Tech Badges -->
+                        <div class="flex flex-wrap gap-2 pt-2">
+                            <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs font-medium border border-slate-700">Python</span>
+                            <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs font-medium border border-slate-700">Pandas</span>
+                            <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs font-medium border border-slate-700">NumPy</span>
+                            <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs font-medium border border-slate-700">Scikit-Learn</span>
+                            <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 text-xs font-medium border border-slate-700">SVD</span>
+                        </div>
+                    </div>
+
+                    <!-- Side CTA Card -->
+                    <div class="lg:col-span-4 glass-card p-5 rounded-xl border border-slate-800 space-y-4 bg-slate-900/60">
+                        <div class="flex items-center gap-3">
+                            <div class="p-2 rounded-lg bg-cyan-500/10 text-cyan-400">
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+                            </div>
+                            <div>
+                                <p class="text-white font-bold text-sm">Source Code</p>
+                                <p class="text-slate-400 text-xs">Public GitHub Repository</p>
+                            </div>
+                        </div>
+                        <p class="text-slate-400 text-xs leading-relaxed">
+                            Explore full code structure, Jupyter Notebooks, and SVD modeling scripts directly on GitHub.
+                        </p>
+                        <a href="https://github.com/Prithish-22/Netflix-Project" target="_blank" rel="noopener noreferrer"
+                           class="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-black font-bold text-xs transition-colors">
+                            View on GitHub
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- EDUCATION SECTION -->
+        <section id="education" class="space-y-8 scroll-mt-28 reveal-node">
+            <div class="flex items-center gap-3">
+                <span class="text-xs font-bold tracking-widest text-cyan-400 uppercase">04 //</span>
+                <h2 class="text-2xl sm:text-3xl font-bold text-white">Education & Professional Training</h2>
+                <div class="h-px bg-slate-800 flex-1 ml-2"></div>
+            </div>
+
+            <!-- Timeline Stack -->
+            <div class="relative border-l-2 border-slate-800 ml-3 sm:ml-6 space-y-8 pl-6 sm:pl-8">
+
+                <!-- Timeline Item 1 -->
+                <div class="relative group">
+                    <div class="absolute -left-[31px] sm:-left-[39px] top-1.5 h-4 w-4 rounded-full bg-cyan-500 ring-4 ring-slate-950"></div>
+                    <div class="glass-card p-6 rounded-2xl space-y-3">
+                        <div class="flex flex-wrap items-center justify-between gap-2">
+                            <span class="px-2.5 py-1 rounded bg-cyan-500/10 text-cyan-400 text-xs font-bold border border-cyan-500/20">Ongoing (3rd Year)</span>
+                            <span class="text-xs font-medium text-slate-400">Voorhees College</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white">Bachelor of Arts in English</h3>
+                        <p class="text-slate-300 text-sm leading-relaxed">
+                            Deepening critical analysis, effective technical documentation, and structural reasoning. This background provides strong communication skills necessary for presenting complex analytical insights.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Timeline Item 2 -->
+                <div class="relative group">
+                    <div class="absolute -left-[31px] sm:-left-[39px] top-1.5 h-4 w-4 rounded-full bg-indigo-500 ring-4 ring-slate-950"></div>
+                    <div class="glass-card p-6 rounded-2xl space-y-3">
+                        <div class="flex flex-wrap items-center justify-between gap-2">
+                            <span class="px-2.5 py-1 rounded bg-emerald-500/10 text-emerald-400 text-xs font-bold border border-emerald-500/20">Completed Certification</span>
+                            <span class="text-xs font-medium text-slate-400">Intellipaat</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white">Professional Certification in Software Engineering</h3>
+                        <p class="text-slate-300 text-sm leading-relaxed">
+                            Data Science Track specialization focusing on practical programming in Python, relational databases with SQL, statistical modeling, machine learning workflows, and data structures.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Timeline Item 3 -->
+                <div class="relative group">
+                    <div class="absolute -left-[31px] sm:-left-[39px] top-1.5 h-4 w-4 rounded-full bg-violet-500 ring-4 ring-slate-950"></div>
+                    <div class="glass-card p-6 rounded-2xl space-y-3">
+                        <div class="flex flex-wrap items-center justify-between gap-2">
+                            <span class="px-2.5 py-1 rounded bg-indigo-500/10 text-indigo-400 text-xs font-bold border border-indigo-500/20">Ongoing Advanced Program</span>
+                            <span class="text-xs font-medium text-slate-400">Intellipaat & iHUB IIT Roorkee</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white">
+                            <a href="https://intellipaat.com/data-science-ai-genius-pro/" target="_blank" rel="noopener noreferrer" class="hover:text-cyan-300 transition-colors inline-flex items-center gap-1.5">
+                                Professional Program in Applied AI & Data Science
+                                <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                            </a>
+                        </h3>
+                        <p class="text-slate-300 text-sm leading-relaxed">
+                            Intensive practical training focusing on enterprise AI workflows, deep learning basics, and real-world project deployments backed by iHUB DivyaSampark IIT Roorkee.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- CERTIFICATIONS SECTION -->
+        <section id="certifications" class="space-y-8 scroll-mt-28 reveal-node">
+            <div class="flex items-center gap-3">
+                <span class="text-xs font-bold tracking-widest text-cyan-400 uppercase">05 //</span>
+                <h2 class="text-2xl sm:text-3xl font-bold text-white">Verified Certifications</h2>
+                <div class="h-px bg-slate-800 flex-1 ml-2"></div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                <!-- Featured Certificate Preview -->
+                <div class="lg:col-span-5 glass-card p-5 rounded-2xl space-y-4">
+                    <a href="https://tih.iitr.ac.in/certificate/intellipaat/IPTIH25121787.jpg" target="_blank" rel="noopener noreferrer" class="group block relative overflow-hidden rounded-xl border border-slate-800">
+                        <img src="https://tih.iitr.ac.in/certificate/intellipaat/IPTIH25121787.jpg"
+                             alt="iHUB IIT Roorkee & Intellipaat Certificate"
+                             class="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-300">
+                        <div class="absolute inset-0 bg-slate-950/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <span class="px-4 py-2 rounded-lg bg-cyan-500 text-black font-bold text-xs shadow-lg">View High Resolution</span>
+                        </div>
                     </a>
-                    <h3><a href="https://tih.iitr.ac.in/certificate/intellipaat/IPTIH25121787.jpg" target="_blank" rel="noopener noreferrer">Professional Certification in Software Engineering &amp; Data Science</a></h3>
-                    <p>Issued by Intellipaat &amp; iHUB DivyaSampark (IIT Roorkee). This is my primary certification in software engineering and data science.</p>
-                </article>
-                <ul class="cert-list" aria-label="Additional certificate links">
-                    <li><a href="https://lms.intellipaat.com/certificate-link/?Yz01OTEwJnU9MjczNDU1JmV4dD0x" target="_blank" rel="noopener noreferrer">Python Certification</a><span>Intellipaat</span></li>
-                    <li><a href="https://lms.intellipaat.com/certificate-link/?Yz1jdXMtOTEzMTY3JnU9MjczNDU1JmV4dD0x" target="_blank" rel="noopener noreferrer">MS SQL Server</a><span>Intellipaat</span></li>
-                    <li><a href="https://lms.intellipaat.com/certificate-link/?Yz1jdXMtOTEzMzgwJnU9MjczNDU1JmV4dD0x" target="_blank" rel="noopener noreferrer">Data Science Course</a><span>Intellipaat</span></li>
-                    <li><a href="https://drive.google.com/file/d/10fubAHchEUqRcQqqzWyGCMgdLyLCinaE/view?usp=sharing" target="_blank" rel="noopener noreferrer">AI Chat Prompt For Business Analysis</a><span>NASBA (via LinkedIn)</span></li>
-                    <li><a href="https://lms.intellipaat.com/certificate-link/?Yz1jdXMtOTEzNDIxJnU9MjczNDU1JmV4dD0x" target="_blank" rel="noopener noreferrer">Power BI</a><span>Intellipaat</span></li>
-                    <li><a href="https://lms.intellipaat.com/certificate-link/?Yz0yNjYwOSZ1PTI3MzQ1NSZleHQ9MQ==" target="_blank" rel="noopener noreferrer">Advanced Certificate in Microsoft Excel</a><span>Intellipaat</span></li>
-                    <li><a href="https://drive.google.com/file/d/1-zkxGvNXXylrcffyPW71stwv-uphx3HD/view?usp=sharing" target="_blank" rel="noopener noreferrer">Machine Learning with Python</a><span>Coursera</span></li>
-                </ul>
+                    <div>
+                        <span class="text-xs font-bold text-cyan-400 uppercase tracking-wider block">Primary Credential</span>
+                        <h3 class="text-lg font-bold text-white mt-1">Professional Certification in Software Engineering & Data Science</h3>
+                        <p class="text-slate-400 text-xs mt-1">Issued by Intellipaat & iHUB DivyaSampark (IIT Roorkee). ID: IPTIH25121787</p>
+                    </div>
+                </div>
+
+                <!-- Certification Links List -->
+                <div class="lg:col-span-7 glass-card p-6 rounded-2xl space-y-4">
+                    <h3 class="text-lg font-bold text-white border-b border-slate-800 pb-3 flex items-center justify-between">
+                        <span>Coursework & Specialization Credentials</span>
+                        <span class="text-xs text-slate-400 font-normal">7 Verified Seals</span>
+                    </h3>
+
+                    <div class="space-y-3">
+                        <a href="https://lms.intellipaat.com/certificate-link/?Yz01OTEwJnU9MjczNDU1JmV4dD0x" target="_blank" rel="noopener noreferrer"
+                           class="flex items-center justify-between p-3.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-slate-800/80 hover:border-cyan-500/40 transition-all group">
+                            <div class="flex items-center gap-3">
+                                <div class="w-2 h-2 rounded-full bg-cyan-400"></div>
+                                <span class="text-sm font-semibold text-slate-200 group-hover:text-cyan-300">Python Certification</span>
+                            </div>
+                            <span class="text-xs text-slate-400 font-medium">Intellipaat →</span>
+                        </a>
+
+                        <a href="https://lms.intellipaat.com/certificate-link/?Yz1jdXMtOTEzMTY3JnU9MjczNDU1JmV4dD0x" target="_blank" rel="noopener noreferrer"
+                           class="flex items-center justify-between p-3.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-slate-800/80 hover:border-cyan-500/40 transition-all group">
+                            <div class="flex items-center gap-3">
+                                <div class="w-2 h-2 rounded-full bg-indigo-400"></div>
+                                <span class="text-sm font-semibold text-slate-200 group-hover:text-cyan-300">MS SQL Server</span>
+                            </div>
+                            <span class="text-xs text-slate-400 font-medium">Intellipaat →</span>
+                        </a>
+
+                        <a href="https://lms.intellipaat.com/certificate-link/?Yz1jdXMtOTEzMzgwJnU9MjczNDU1JmV4dD0x" target="_blank" rel="noopener noreferrer"
+                           class="flex items-center justify-between p-3.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-slate-800/80 hover:border-cyan-500/40 transition-all group">
+                            <div class="flex items-center gap-3">
+                                <div class="w-2 h-2 rounded-full bg-violet-400"></div>
+                                <span class="text-sm font-semibold text-slate-200 group-hover:text-cyan-300">Data Science Course</span>
+                            </div>
+                            <span class="text-xs text-slate-400 font-medium">Intellipaat →</span>
+                        </a>
+
+                        <a href="https://drive.google.com/file/d/10fubAHchEUqRcQqqzWyGCMgdLyLCinaE/view?usp=sharing" target="_blank" rel="noopener noreferrer"
+                           class="flex items-center justify-between p-3.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-slate-800/80 hover:border-cyan-500/40 transition-all group">
+                            <div class="flex items-center gap-3">
+                                <div class="w-2 h-2 rounded-full bg-emerald-400"></div>
+                                <span class="text-sm font-semibold text-slate-200 group-hover:text-cyan-300">AI Chat Prompt For Business Analysis</span>
+                            </div>
+                            <span class="text-xs text-slate-400 font-medium">NASBA (via LinkedIn) →</span>
+                        </a>
+
+                        <a href="https://lms.intellipaat.com/certificate-link/?Yz1jdXMtOTEzNDIxJnU9MjczNDU1JmV4dD0x" target="_blank" rel="noopener noreferrer"
+                           class="flex items-center justify-between p-3.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-slate-800/80 hover:border-cyan-500/40 transition-all group">
+                            <div class="flex items-center gap-3">
+                                <div class="w-2 h-2 rounded-full bg-cyan-400"></div>
+                                <span class="text-sm font-semibold text-slate-200 group-hover:text-cyan-300">Power BI</span>
+                            </div>
+                            <span class="text-xs text-slate-400 font-medium">Intellipaat →</span>
+                        </a>
+
+                        <a href="https://lms.intellipaat.com/certificate-link/?Yz0yNjYwOSZ1PTI3MzQ1NSZleHQ9MQ==" target="_blank" rel="noopener noreferrer"
+                           class="flex items-center justify-between p-3.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-slate-800/80 hover:border-cyan-500/40 transition-all group">
+                            <div class="flex items-center gap-3">
+                                <div class="w-2 h-2 rounded-full bg-indigo-400"></div>
+                                <span class="text-sm font-semibold text-slate-200 group-hover:text-cyan-300">Advanced Certificate in Microsoft Excel</span>
+                            </div>
+                            <span class="text-xs text-slate-400 font-medium">Intellipaat →</span>
+                        </a>
+
+                        <a href="https://drive.google.com/file/d/1-zkxGvNXXylrcffyPW71stwv-uphx3HD/view?usp=sharing" target="_blank" rel="noopener noreferrer"
+                           class="flex items-center justify-between p-3.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-slate-800/80 hover:border-cyan-500/40 transition-all group">
+                            <div class="flex items-center gap-3">
+                                <div class="w-2 h-2 rounded-full bg-violet-400"></div>
+                                <span class="text-sm font-semibold text-slate-200 group-hover:text-cyan-300">Machine Learning with Python</span>
+                            </div>
+                            <span class="text-xs text-slate-400 font-medium">Coursera →</span>
+                        </a>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <section id="contact" class="reveal">
-            <div class="section-heading">
-                <span class="index">06</span>
-                <h2>Contact</h2>
+        <!-- CONTACT SECTION -->
+        <section id="contact" class="space-y-8 scroll-mt-28 reveal-node">
+            <div class="flex items-center gap-3">
+                <span class="text-xs font-bold tracking-widest text-cyan-400 uppercase">06 //</span>
+                <h2 class="text-2xl sm:text-3xl font-bold text-white">Get In Touch</h2>
+                <div class="h-px bg-slate-800 flex-1 ml-2"></div>
             </div>
-            <div class="contact-grid">
-                <article class="panel">
-                    <p>I’m actively seeking opportunities to apply my skills and contribute to innovative projects. If you have an opening, a collaboration idea, or a question, feel free to reach out.</p>
-                    <p><a class="btn primary" href="mailto:prithish483@gmail.com">Send Email</a></p>
-                    <ul class="contact-list">
-                        <li>Email: <a href="mailto:prithish483@gmail.com">prithish483@gmail.com</a></li>
-                        <li>WhatsApp: <a href="https://wa.me/9944408977" target="_blank" rel="noopener noreferrer">+91 99444 08977</a></li>
-                        <li>Resume: <a href="https://drive.google.com/file/d/18YX2FFgxeOojemDrvt7gpuB9uKl6ZPfd/view?usp=drive_link" target="_blank" rel="noopener noreferrer">View resume</a></li>
-                    </ul>
-                </article>
-                <aside class="panel" aria-label="Social profiles">
-                    <strong>Profiles</strong>
-                    <ul class="social-list" style="margin-top:0.8rem;">
-                        <li><a href="https://github.com/Prithish-22" target="_blank" rel="noopener noreferrer">GitHub</a></li>
-                        <li><a href="https://www.linkedin.com/in/prithish-raj-9bb884349" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
-                    </ul>
-                </aside>
+
+            <div class="glass-card p-8 sm:p-12 rounded-3xl relative overflow-hidden text-center max-w-4xl mx-auto space-y-6">
+                <div class="inline-flex p-3 rounded-2xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 mb-2">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                </div>
+
+                <h3 class="text-3xl sm:text-4xl font-extrabold text-white">Let’s Connect & Build Together</h3>
+                <p class="text-slate-300 max-w-xl mx-auto text-sm sm:text-base leading-relaxed">
+                    I am actively seeking software engineering internships, entry-level data science roles, and tech collaborations. Reach out via email or WhatsApp!
+                </p>
+
+                <div class="flex flex-wrap items-center justify-center gap-4 pt-4">
+                    <a href="mailto:prithish483@gmail.com" class="px-8 py-4 rounded-xl bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-black font-bold text-sm shadow-lg shadow-cyan-500/25 transition-all hover:scale-[1.03] flex items-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                        prithish483@gmail.com
+                    </a>
+                    <a href="https://wa.me/9944408977" target="_blank" rel="noopener noreferrer" class="px-8 py-4 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 font-bold text-sm transition-all hover:scale-[1.03] flex items-center gap-2">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+                        WhatsApp
+                    </a>
+                </div>
+
+                <div class="pt-6 border-t border-slate-800 flex flex-wrap justify-center items-center gap-6 text-sm text-slate-400">
+                    <a href="https://github.com/Prithish-22" target="_blank" rel="noopener noreferrer" class="hover:text-cyan-400 transition-colors flex items-center gap-1.5">
+                        GitHub Profile
+                    </a>
+                    <span>•</span>
+                    <a href="https://www.linkedin.com/in/prithish-raj-9bb884349" target="_blank" rel="noopener noreferrer" class="hover:text-cyan-400 transition-colors flex items-center gap-1.5">
+                        LinkedIn Profile
+                    </a>
+                    <span>•</span>
+                    <a href="https://drive.google.com/file/d/18YX2FFgxeOojemDrvt7gpuB9uKl6ZPfd/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="hover:text-cyan-400 transition-colors flex items-center gap-1.5">
+                        Download Resume
+                    </a>
+                </div>
             </div>
         </section>
+
     </main>
 
-    <footer>
-        <div class="container">
+    <!-- FOOTER -->
+    <footer class="border-t border-slate-800/80 bg-slate-950 py-10">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
             <p>&copy; <span id="currentYear"></span> Prithish Raj T. All Rights Reserved.</p>
-            <p>Designed &amp; Built by Prithish Raj T.</p>
+            <p class="flex items-center gap-1">
+                Designed &amp; Built with <span class="text-cyan-400">Tailwind CSS</span>
+            </p>
         </div>
     </footer>
 
+    <!-- INTERACTIVE SCRIPTS -->
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+            // Mobile Menu Toggle
             const menuButton = document.getElementById('menuButton');
-            const siteNav = document.getElementById('siteNav');
-            const navLinks = siteNav ? siteNav.querySelectorAll('a[href^="#"]') : [];
-            const sections = document.querySelectorAll('main section[id]');
+            const mobileNav = document.getElementById('mobileNav');
+            const mobileLinks = document.querySelectorAll('.mobile-link');
 
-            if (menuButton && siteNav) {
+            if (menuButton && mobileNav) {
                 menuButton.addEventListener('click', function () {
-                    const open = siteNav.classList.toggle('open');
-                    menuButton.setAttribute('aria-expanded', String(open));
+                    const isExpanded = menuButton.getAttribute('aria-expanded') === 'true';
+                    menuButton.setAttribute('aria-expanded', String(!isExpanded));
+                    mobileNav.classList.toggle('hidden');
                 });
 
-                navLinks.forEach(function (link) {
+                mobileLinks.forEach(function (link) {
                     link.addEventListener('click', function () {
-                        siteNav.classList.remove('open');
+                        mobileNav.classList.add('hidden');
                         menuButton.setAttribute('aria-expanded', 'false');
                     });
                 });
             }
 
-            const updateActiveNav = function () {
-                let current = 'about';
+            // Scrollspy Nav Active Highlight
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            function updateActiveNav() {
+                let current = '';
+                const scrollPosition = window.scrollY + 120;
+
                 sections.forEach(function (section) {
-                    const top = section.offsetTop - 110;
-                    const bottom = top + section.offsetHeight;
-                    if (window.scrollY >= top && window.scrollY < bottom) {
-                        current = section.id;
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.offsetHeight;
+                    if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                        current = section.getAttribute('id');
                     }
                 });
 
                 navLinks.forEach(function (link) {
-                    link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+                    const href = link.getAttribute('href').substring(1);
+                    if (href === current) {
+                        link.classList.add('text-white', 'bg-slate-800/90', 'shadow-sm');
+                        link.classList.remove('text-slate-300');
+                    } else {
+                        link.classList.remove('text-white', 'bg-slate-800/90', 'shadow-sm');
+                        link.classList.add('text-slate-300');
+                    }
                 });
-            };
+            }
 
             window.addEventListener('scroll', updateActiveNav, { passive: true });
             updateActiveNav();
 
-            const revealItems = document.querySelectorAll('.reveal');
-            const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-            if (!reduceMotion && 'IntersectionObserver' in window) {
-                const observer = new IntersectionObserver(function (entries, obs) {
+            // Reveal animations using IntersectionObserver
+            const revealNodes = document.querySelectorAll('.reveal-node');
+            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+            if (!prefersReducedMotion && 'IntersectionObserver' in window) {
+                const observer = new IntersectionObserver(function (entries) {
                     entries.forEach(function (entry) {
                         if (entry.isIntersecting) {
                             entry.target.classList.add('in-view');
-                            obs.unobserve(entry.target);
+                            observer.unobserve(entry.target);
                         }
                     });
-                }, { threshold: 0.12 });
+                }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
-                revealItems.forEach(function (item) { observer.observe(item); });
+                revealNodes.forEach(function (node) {
+                    observer.observe(node);
+                });
             } else {
-                revealItems.forEach(function (item) { item.classList.add('in-view'); });
+                revealNodes.forEach(function (node) {
+                    node.classList.add('in-view');
+                });
             }
 
-            const currentYear = document.getElementById('currentYear');
-            if (currentYear) currentYear.textContent = String(new Date().getFullYear());
+            // Footer year update
+            const yearElem = document.getElementById('currentYear');
+            if (yearElem) yearElem.textContent = String(new Date().getFullYear());
         });
     </script>
 </body>
